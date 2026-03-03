@@ -1,0 +1,15 @@
+{
+  "name": "sapira-design-system",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.0"
+  },
+  "packageManager": "pnpm@10.6.2"
+}
