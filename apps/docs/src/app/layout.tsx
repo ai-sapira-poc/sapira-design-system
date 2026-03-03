@@ -40,6 +40,35 @@ const navigation = [
       { label: "Skeleton", href: "/components/skeleton" },
     ],
   },
+  {
+    label: "Feedback",
+    children: [
+      { label: "Toast", href: "/components/toast" },
+      { label: "ConfirmDialog", href: "/components/confirm-dialog" },
+      { label: "FilterBar", href: "/components/filter-bar" },
+      { label: "SearchBox", href: "/components/search-box" },
+      { label: "DrawerPanel", href: "/components/drawer-panel" },
+      { label: "WizardStepper", href: "/components/wizard-stepper" },
+    ],
+  },
+  {
+    label: "AI",
+    children: [
+      { label: "AIBadge", href: "/components/ai-badge" },
+      { label: "StreamingText", href: "/components/streaming-text" },
+      { label: "AIGenerationPreview", href: "/components/ai-generation-preview" },
+    ],
+  },
+  {
+    label: "Patterns",
+    children: [
+      { label: "Dashboard", href: "/patterns/dashboard" },
+      { label: "CRUD", href: "/patterns/crud" },
+      { label: "Wizard", href: "/patterns/wizard" },
+    ],
+  },
+  { label: "Themes", href: "/themes" },
+  { label: "For Agents", href: "/agents" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

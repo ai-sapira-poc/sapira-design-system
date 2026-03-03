@@ -10,6 +10,12 @@ export * from "./components/layout";
 // Data Display
 export * from "./components/data-display";
 
+// Feedback
+export * from "./components/feedback";
+
+// AI
+export * from "./components/ai";
+
 // Tokens & Theming
 export { createTheme, ThemeProvider, useTheme } from "./tokens/theme";
 export type { ThemeConfig, ThemeCSS } from "./tokens/theme";
