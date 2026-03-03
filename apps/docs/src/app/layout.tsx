@@ -8,7 +8,38 @@ export const metadata: Metadata = {
 
 const navigation = [
   { label: "Overview", href: "/" },
-  { label: "Button", href: "/components/button" },
+  {
+    label: "Primitives",
+    children: [{ label: "Button", href: "/components/button" }],
+  },
+  {
+    label: "Overlay",
+    children: [
+      { label: "Dialog", href: "/components/dialog" },
+      { label: "Sheet", href: "/components/sheet" },
+      { label: "Dropdown Menu", href: "/components/dropdown-menu" },
+      { label: "Popover", href: "/components/popover" },
+      { label: "Command Palette", href: "/components/command-palette" },
+    ],
+  },
+  {
+    label: "Layout",
+    children: [
+      { label: "AppShell", href: "/components/app-shell" },
+      { label: "PageHeader", href: "/components/page-header" },
+    ],
+  },
+  {
+    label: "Data Display",
+    children: [
+      { label: "DataTable", href: "/components/data-table" },
+      { label: "MetricsCard", href: "/components/metrics-card" },
+      { label: "Timeline", href: "/components/timeline" },
+      { label: "StatusBadge", href: "/components/status-badge" },
+      { label: "EmptyState", href: "/components/empty-state" },
+      { label: "Skeleton", href: "/components/skeleton" },
+    ],
+  },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,16 +53,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <h1 className="text-lg font-semibold tracking-tight">Sapira DS</h1>
               <p className="text-xs text-muted-foreground mt-1">Design System</p>
             </div>
-            <nav className="space-y-1">
-              {navigation.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                >
-                  {item.label}
-                </a>
-              ))}
+            <nav className="space-y-4">
+              {navigation.map((section) =>
+                "children" in section && section.children ? (
+                  <div key={section.label}>
+                    <p className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground mb-1 px-3">
+                      {section.label}
+                    </p>
+                    <div className="space-y-0.5">
+                      {section.children.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          className="block px-3 py-1.5 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    key={section.href}
+                    href={section.href}
+                    className="block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium"
+                  >
+                    {section.label}
+                  </a>
+                )
+              )}
             </nav>
           </aside>
 
