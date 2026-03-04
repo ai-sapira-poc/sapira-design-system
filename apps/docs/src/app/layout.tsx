@@ -96,6 +96,16 @@ const navigation = [
     ],
   },
   {
+    label: "Effects",
+    children: [
+      { label: "GlowingEffect", href: "/components/glowing-effect" },
+      { label: "ShimmerButton", href: "/components/shimmer-button" },
+      { label: "NumberTicker", href: "/components/number-ticker" },
+      { label: "TextShimmer", href: "/components/text-shimmer" },
+      { label: "MovingBorder", href: "/components/moving-border" },
+    ],
+  },
+  {
     label: "AI",
     children: [
       { label: "AIBadge", href: "/components/ai-badge" },
