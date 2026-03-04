@@ -47,6 +47,7 @@ const navigation = [
       { label: "PageHeader", href: "/components/page-header" },
       { label: "GuidedPanel", href: "/components/guided-panel" },
       { label: "HeroSection", href: "/components/hero-section" },
+      { label: "Sidebar", href: "/components/sidebar" },
     ],
   },
   {
