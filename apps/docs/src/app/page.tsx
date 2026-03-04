@@ -44,10 +44,20 @@ export default function OverviewPage() {
 
       <div className="space-y-4">
         <h2 className="text-lg font-semibold">Quick Start</h2>
+        <p className="text-sm text-muted-foreground">
+          Install directly from the GitHub repo (no npm registry needed):
+        </p>
         <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
-          <code>{`import "@sapira/ui/tokens/globals.css";
+          <code>{`# Install from GitHub
+pnpm add ai-sapira-poc/sapira-design-system
+
+# Then import in your app
+import "@sapira/ui/tokens/globals.css";
 import { Button, Badge, ThemeProvider } from "@sapira/ui";`}</code>
         </pre>
+        <p className="text-xs text-muted-foreground">
+          You can also pin a specific commit: <code className="text-xs bg-muted px-1 py-0.5 rounded">pnpm add ai-sapira-poc/sapira-design-system#commit-sha</code>
+        </p>
       </div>
 
       {/* Component Showcase */}
