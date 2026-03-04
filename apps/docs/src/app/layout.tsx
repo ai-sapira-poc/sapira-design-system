@@ -5,6 +5,9 @@ import { DocsShell } from "./docs-shell";
 export const metadata: Metadata = {
   title: "Sapira Design System",
   description: "Themeable component library for Sapira demos",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 const navigation = [
