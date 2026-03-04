@@ -17,3 +17,10 @@ export { CustomSelect, type CustomSelectProps, type CustomSelectOption } from ".
 export { Separator } from "./separator";
 export { Avatar, AvatarImage, AvatarFallback } from "./avatar";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
+export { Breadcrumbs, type BreadcrumbsProps, type BreadcrumbItem } from "./breadcrumbs";
+export { Tabs, type TabsProps, type TabItem } from "./tabs";
+export { Checkbox, type CheckboxProps } from "./checkbox";
+export { ProgressBar, type ProgressBarProps } from "./progress-bar";
+export { CardSelector, type CardSelectorProps, type CardSelectorOption } from "./card-selector";
+export { SelectDropdown, type SelectDropdownProps, type SelectDropdownOption } from "./select-dropdown";
+export { UserProfile, type UserProfileProps } from "./user-profile";

@@ -16,6 +16,12 @@ const navigation = [
     children: [
       { label: "Button", href: "/components/button" },
       { label: "Input", href: "/components/input" },
+      { label: "Breadcrumbs", href: "/components/breadcrumbs" },
+      { label: "Tabs", href: "/components/tabs" },
+      { label: "Checkbox", href: "/components/checkbox" },
+      { label: "CardSelector", href: "/components/card-selector" },
+      { label: "SelectDropdown", href: "/components/select-dropdown" },
+      { label: "UserProfile", href: "/components/user-profile" },
     ],
   },
   {
@@ -33,6 +39,7 @@ const navigation = [
     children: [
       { label: "AppShell", href: "/components/app-shell" },
       { label: "PageHeader", href: "/components/page-header" },
+      { label: "GuidedPanel", href: "/components/guided-panel" },
     ],
   },
   {
@@ -44,6 +51,8 @@ const navigation = [
       { label: "StatusBadge", href: "/components/status-badge" },
       { label: "EmptyState", href: "/components/empty-state" },
       { label: "Skeleton", href: "/components/skeleton" },
+      { label: "StatCard", href: "/components/stat-card" },
+      { label: "ProgressBar", href: "/components/progress-bar" },
     ],
   },
   {
@@ -55,6 +64,9 @@ const navigation = [
       { label: "SearchBox", href: "/components/search-box" },
       { label: "DrawerPanel", href: "/components/drawer-panel" },
       { label: "WizardStepper", href: "/components/wizard-stepper" },
+      { label: "NotificationCard", href: "/components/notification-card" },
+      { label: "NotificationBell", href: "/components/notification-bell" },
+      { label: "CompactStepper", href: "/components/compact-stepper" },
     ],
   },
   {

@@ -4,3 +4,6 @@ export { FilterBar, type FilterBarProps, type FilterDefinition, type FilterOptio
 export { SearchBox, type SearchBoxProps } from "./search-box";
 export { DrawerPanel, type DrawerPanelProps } from "./drawer-panel";
 export { WizardStepper, type WizardStepperProps, type WizardStep } from "./wizard-stepper";
+export { NotificationCard, type NotificationCardProps } from "./notification-card";
+export { NotificationBell, type NotificationBellProps } from "./notification-bell";
+export { CompactStepper, type CompactStepperProps, type CompactStep } from "./compact-stepper";
