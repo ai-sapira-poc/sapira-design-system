@@ -10,6 +10,7 @@ const navigation = [
   { label: "Overview", href: "/" },
   { label: "Brand Themes", href: "/themes" },
   { label: "For Agents", href: "/agents" },
+  { label: "Icons", href: "/icons" },
   { type: "separator" },
   {
     label: "Primitives",
