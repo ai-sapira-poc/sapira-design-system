@@ -25,7 +25,7 @@ function AnimatedBackground({
   ...props
 }: AnimatedBackgroundProps) {
   const dur = speedMap[speed];
-  const c = colors ?? ["hsl(var(--primary))", "hsl(var(--secondary, var(--primary)))"];
+  const c = colors ?? ["var(--primary, #2563eb)", "var(--secondary, #7c3aed)"];
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
   const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
@@ -49,17 +49,6 @@ function AnimatedBackground({
       {variant === "aurora" && <AuroraBg colors={c} dur={dur} />}
       {variant === "dots" && <DotsBg dur={dur} />}
       {variant === "grid" && <GridBg dur={dur} />}
-      {interactive && (
-        <motion.div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: `radial-gradient(600px circle at calc(var(--mx) * 100%) calc(var(--my) * 100%), ${c[0]}08, transparent 60%)`,
-            // @ts-expect-error CSS custom properties
-            "--mx": springX,
-            "--my": springY,
-          }}
-        />
-      )}
       {children && <div className="relative z-10">{children}</div>}
     </div>
   );
@@ -80,7 +69,7 @@ function GradientBg({ colors, dur }: { colors: string[]; dur: number }) {
         {colors.map((c, i) => (
           <div
             key={i}
-            className="absolute w-[60%] h-[60%] opacity-[0.07] blur-3xl"
+            className="absolute w-[60%] h-[60%] opacity-[0.12] blur-3xl"
             style={{
               background: c,
               top: `${20 + i * 15}%`,
@@ -100,9 +89,9 @@ function AuroraBg({ colors, dur }: { colors: string[]; dur: number }) {
     <>
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes sapira-aurora {
-          0%, 100% { transform: translateX(-10%) skewX(-5deg); opacity: 0.04; }
-          33% { transform: translateX(5%) skewX(2deg); opacity: 0.07; }
-          66% { transform: translateX(-5%) skewX(-2deg); opacity: 0.05; }
+          0%, 100% { transform: translateX(-10%) skewX(-5deg); opacity: 0.08; }
+          33% { transform: translateX(5%) skewX(2deg); opacity: 0.14; }
+          66% { transform: translateX(-5%) skewX(-2deg); opacity: 0.1; }
         }
       ` }} />
       <div className="absolute inset-0">
@@ -133,11 +122,11 @@ function DotsBg({ dur }: { dur: number }) {
         }
       ` }} />
       <div
-        className="pointer-events-none absolute inset-0 text-foreground"
+        className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
           backgroundSize: "40px 40px",
-          opacity: 0.015,
+          opacity: 0.04,
           animation: `sapira-dots-drift ${dur * 2}s ease-in-out infinite`,
         }}
       />
@@ -157,8 +146,8 @@ function GridBg({ dur }: { dur: number }) {
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: `linear-gradient(to right, hsl(var(--foreground) / 0.03) 1px, transparent 1px),
-                            linear-gradient(to bottom, hsl(var(--foreground) / 0.03) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(to right, rgba(128,128,128,0.06) 1px, transparent 1px),
+                            linear-gradient(to bottom, rgba(128,128,128,0.06) 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
           animation: `sapira-grid-shift ${dur * 2}s ease-in-out infinite`,
         }}

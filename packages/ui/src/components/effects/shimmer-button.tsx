@@ -14,7 +14,7 @@ function ShimmerButton({
   shimmerColor = "rgba(255,255,255,0.3)",
   shimmerSize = "0.05em",
   shimmerDuration = "3s",
-  background = "hsl(var(--primary))",
+  background = "var(--primary, #2563eb)",
   className,
   children,
   ...props

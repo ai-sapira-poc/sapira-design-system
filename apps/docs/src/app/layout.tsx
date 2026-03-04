@@ -52,10 +52,8 @@ const navigation = [
       { label: "AppShell", href: "/components/app-shell" },
       { label: "PageHeader", href: "/components/page-header" },
       { label: "GuidedPanel", href: "/components/guided-panel" },
-      { label: "HeroSection", href: "/components/hero-section" },
       { label: "Sidebar", href: "/components/sidebar" },
       { label: "BentoGrid", href: "/components/bento-grid" },
-      { label: "AnimatedBackground", href: "/components/animated-background" },
     ],
   },
   {
@@ -75,7 +73,6 @@ const navigation = [
       { label: "AreaChart", href: "/components/area-chart" },
       { label: "Sparkline", href: "/components/sparkline" },
       { label: "Marquee", href: "/components/marquee" },
-      { label: "DisplayCard", href: "/components/display-card" },
     ],
   },
   {
@@ -103,6 +100,7 @@ const navigation = [
       { label: "NumberTicker", href: "/components/number-ticker" },
       { label: "TextShimmer", href: "/components/text-shimmer" },
       { label: "MovingBorder", href: "/components/moving-border" },
+      { label: "AnimatedBackground", href: "/components/animated-background" },
     ],
   },
   {

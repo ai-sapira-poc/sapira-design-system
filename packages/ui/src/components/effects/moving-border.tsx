@@ -14,28 +14,27 @@ export interface MovingBorderProps {
 }
 
 function MovingBorder({
-  duration = 2000,
-  borderRadius = "1.75rem",
-  colors = ["hsl(var(--primary))", "hsl(var(--primary) / 0.3)", "hsl(var(--primary))"],
+  duration = 3000,
+  borderRadius = "1rem",
+  colors,
   className,
   children,
   as: Component = "div",
 }: MovingBorderProps) {
+  const c = colors ?? ["var(--primary, #2563eb)", "transparent", "var(--primary, #2563eb)"];
+
   return (
     <Component
       className={cn("relative overflow-hidden p-[2px]", className)}
       style={{ borderRadius }}
     >
-      <div
-        className="absolute inset-0"
-        style={{ borderRadius }}
-      >
+      <div className="absolute inset-0 overflow-hidden" style={{ borderRadius }}>
         <motion.div
-          className="absolute h-[200%] w-[200%]"
+          className="absolute h-[300%] w-[300%]"
           style={{
-            top: "-50%",
-            left: "-50%",
-            background: `conic-gradient(from 0deg, ${colors.join(", ")}, transparent)`,
+            top: "-100%",
+            left: "-100%",
+            background: `conic-gradient(from 0deg, ${c.join(", ")})`,
           }}
           animate={{ rotate: 360 }}
           transition={{

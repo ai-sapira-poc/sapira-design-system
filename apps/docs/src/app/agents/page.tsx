@@ -81,7 +81,7 @@ import { ThemeProvider, ToastProvider } from "@sapira/ui";
               <p><code>Header</code> — Top bar with title, user info, actions.</p>
               <p><code>PageHeader</code> — Page title with breadcrumbs and optional action buttons.</p>
               <p><code>GuidedPanel</code> — Side panel with step-by-step guidance content.</p>
-              <p><code>HeroSection</code> — Full-width hero banner for landing pages. Props: <code>title</code>, <code>subtitle</code>, <code>cta</code>, <code>backgroundVariant</code>.</p>
+              <p><code>BentoGrid</code> — Responsive mixed-size grid for feature showcases. Use <code>BentoGrid</code> + <code>BentoGridItem</code>.</p>
             </div>
           </div>
 
@@ -124,9 +124,8 @@ import { ThemeProvider, ToastProvider } from "@sapira/ui";
           </div>
 
           <div>
-            <h3 className="font-medium mb-2">Landing Page (5)</h3>
+            <h3 className="font-medium mb-2">Landing Page (4)</h3>
             <div className="bg-muted rounded-md p-4 space-y-1">
-              <p><code>HeroSection</code> — Hero banner with title, subtitle, CTA button, and background variants.</p>
               <p><code>IconTile</code> — Card tile with icon, title, and description. Great for feature grids.</p>
               <p><code>RoleCard</code> — Selectable card for role/persona selection with icon and description.</p>
               <p><code>TrustBar</code> — Row of trust signals (certifications, security badges, partner logos).</p>
@@ -161,7 +160,7 @@ import { ThemeProvider, ToastProvider } from "@sapira/ui";
             <li><strong>Searchable dropdown?</strong> → <code>SelectDropdown</code></li>
             <li><strong>User display?</strong> → <code>UserProfile</code> or <code>Avatar</code></li>
             <li><strong>Tooltips?</strong> → Wrap area in <code>TooltipProvider</code>, then <code>Tooltip</code> + <code>TooltipTrigger</code> + <code>TooltipContent</code></li>
-            <li><strong>Landing / welcome page?</strong> → <code>HeroSection</code> + <code>IconTile</code> + <code>RoleCard</code> + <code>TrustBar</code></li>
+            <li><strong>Landing / welcome page?</strong> → <code>IconTile</code> + <code>RoleCard</code> + <code>TrustBar</code> + <code>AnimatedBackground</code></li>
             <li><strong>Guided walkthrough?</strong> → <code>GuidedPanel</code></li>
           </ul>
         </div>
@@ -371,17 +370,18 @@ onNewNotification((n) => {
             <h3 className="font-medium mb-2">Landing Page</h3>
             <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
               <code>{`import {
-  HeroSection, IconTile, RoleCard, TrustBar,
-  LanguageSelector, TooltipProvider, Tooltip,
-  TooltipTrigger, TooltipContent
+  IconTile, RoleCard, TrustBar,
+  AnimatedBackground, BentoGrid, BentoGridItem,
+  TooltipProvider, Tooltip, TooltipTrigger, TooltipContent
 } from "@sapira/ui";
 import { FileText, BarChart3, Settings } from "lucide-react";
 
-<HeroSection
-  title="Welcome to ProjectX"
-  subtitle="Your intelligent workspace"
-  cta={{ label: "Get Started", onClick: handleStart }}
-/>
+<AnimatedBackground variant="gradient" className="min-h-[300px] rounded-xl">
+  <div className="p-12 text-center">
+    <h1 className="text-4xl font-bold">Welcome to ProjectX</h1>
+    <p className="text-muted-foreground mt-2">Your intelligent workspace</p>
+  </div>
+</AnimatedBackground>
 
 <TooltipProvider>
   <div className="grid grid-cols-3 gap-6 mt-12">
@@ -579,7 +579,7 @@ const filters = [
           <code>{`// Everything from one package
 import {
   // Layout
-  AppShell, Sidebar, Header, PageHeader, GuidedPanel, HeroSection,
+  AppShell, Sidebar, Header, PageHeader, GuidedPanel, BentoGrid, BentoGridItem,
   // Primitives
   Button, Input, Badge, Avatar, Separator, Select, Breadcrumbs,
   Tabs, TabsList, TabsTrigger, TabsContent,

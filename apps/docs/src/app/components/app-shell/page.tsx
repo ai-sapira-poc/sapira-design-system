@@ -1,4 +1,15 @@
-import { AppShell } from "@sapira/ui";
+"use client";
+
+import { Sidebar } from "@sapira/ui";
+import { Home, Settings, Users, BarChart3 } from "lucide-react";
+
+const sidebarItems = [
+  { id: "home", label: "Home", icon: <Home className="h-4 w-4" />, href: "#" },
+  { id: "analytics", label: "Analytics", icon: <BarChart3 className="h-4 w-4" />, href: "#" },
+  { id: "users", label: "Users", icon: <Users className="h-4 w-4" />, href: "#" },
+  { type: "separator" as const },
+  { id: "settings", label: "Settings", icon: <Settings className="h-4 w-4" />, href: "#" },
+];
 
 export default function AppShellPage() {
   return (
@@ -13,40 +24,54 @@ export default function AppShellPage() {
           <strong>AppShell vs Dashboard:</strong> Think of AppShell as a <em>blank picture frame</em>.
           The <a href="/patterns/dashboard" className="underline font-medium">Dashboard pattern</a> is
           that frame filled with real furniture — MetricsCards, DataTables, charts, etc.
-          AppShell gives you the skeleton; patterns fill it with life.
         </div>
       </div>
 
-      {/* Minimal example */}
+      {/* Live preview — simulated with relative positioning */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Minimal Example</h2>
+        <h2 className="text-lg font-semibold">Preview</h2>
         <p className="text-sm text-muted-foreground">
-          AppShell with placeholder content — just the structural frame.
+          AppShell composed with Sidebar + Header + content area.
         </p>
-        <div className="border rounded-lg overflow-hidden h-72 relative">
-          <AppShell
-            className="h-full !min-h-0"
-            sidebar={
-              <div className="p-4 space-y-3">
-                <div className="text-sm font-semibold tracking-tight">Logo</div>
-                <nav className="space-y-1 text-sm text-muted-foreground">
-                  <div className="px-2 py-1.5 rounded bg-accent text-accent-foreground">Home</div>
-                  <div className="px-2 py-1.5 rounded hover:bg-accent cursor-pointer">Settings</div>
-                  <div className="px-2 py-1.5 rounded hover:bg-accent cursor-pointer">Users</div>
-                </nav>
-              </div>
-            }
-            header={
-              <header className="flex h-12 items-center justify-between border-b px-4 bg-background">
-                <span className="text-sm font-medium">Page Title</span>
-                <span className="text-xs text-muted-foreground">user@example.com</span>
-              </header>
-            }
-          >
-            <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-              Your content here
+        <div className="border rounded-lg overflow-hidden" style={{ height: 400 }}>
+          <div className="flex h-full">
+            {/* Sidebar */}
+            <div className="w-60 border-r border-border bg-background shrink-0 h-full">
+              <Sidebar
+                items={sidebarItems}
+                activeItemId="home"
+                logo={<span className="font-semibold text-sm px-3 py-4 block">Acme Inc</span>}
+              />
             </div>
-          </AppShell>
+            {/* Main area */}
+            <div className="flex-1 flex flex-col">
+              {/* Header */}
+              <header className="flex h-12 items-center justify-between border-b border-border px-4 bg-background shrink-0">
+                <span className="text-sm font-medium">Dashboard</span>
+                <span className="text-xs text-muted-foreground">admin@acme.com</span>
+              </header>
+              {/* Content */}
+              <div className="flex-1 p-6">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-lg font-semibold">Welcome back</h3>
+                    <p className="text-sm text-muted-foreground">Here&apos;s what&apos;s happening today.</p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {["Users", "Revenue", "Orders"].map((label) => (
+                      <div key={label} className="rounded-lg border border-border p-3">
+                        <p className="text-xs text-muted-foreground">{label}</p>
+                        <p className="text-lg font-semibold mt-1">1,234</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="rounded-lg border border-border p-4 h-24 flex items-center justify-center text-sm text-muted-foreground">
+                    Content area
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -62,40 +87,24 @@ export default function AppShellPage() {
           <li><code className="text-foreground">children</code> — Main content area (pages, forms, dashboards)</li>
         </ul>
         <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
-          <code>{`<AppShell
-  sidebar={<MySidebar />}
-  header={<MyHeader />}
+          <code>{`import { AppShell, Sidebar, Header } from "@sapira/ui";
+
+<AppShell
+  sidebar={
+    <Sidebar
+      items={navItems}
+      activeItemId="dashboard"
+      logo={<span>My App</span>}
+      renderLink={({ href, className, children }) => (
+        <Link href={href} className={className}>{children}</Link>
+      )}
+    />
+  }
+  header={<Header title="Dashboard" />}
 >
-  <MyPageContent />
+  <PageContent />
 </AppShell>`}</code>
         </pre>
-      </section>
-
-      {/* Collapsed sidebar */}
-      <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Collapsed Sidebar</h2>
-        <div className="border rounded-lg overflow-hidden h-48 relative">
-          <AppShell
-            className="h-full !min-h-0"
-            sidebarCollapsed
-            sidebar={
-              <div className="p-2 flex flex-col items-center gap-2 pt-4">
-                <div className="w-8 h-8 rounded bg-muted" />
-                <div className="w-8 h-8 rounded bg-muted" />
-                <div className="w-8 h-8 rounded bg-muted" />
-              </div>
-            }
-            header={
-              <header className="flex h-12 items-center border-b px-4 bg-background">
-                <span className="text-sm font-medium">Collapsed Mode</span>
-              </header>
-            }
-          >
-            <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-              Content with collapsed sidebar
-            </div>
-          </AppShell>
-        </div>
       </section>
 
       {/* Props */}
@@ -134,7 +143,7 @@ export default function AppShellPage() {
 
       <div className="rounded-lg border border-muted bg-muted/30 p-4 text-sm text-muted-foreground">
         💡 See the <a href="/patterns/dashboard" className="underline font-medium text-foreground">Dashboard pattern</a> for
-        a fully composed example with MetricsCards, DataTable, and more.
+        a fully composed example with MetricsCards, DataTable, Charts, and more.
       </div>
     </div>
   );
