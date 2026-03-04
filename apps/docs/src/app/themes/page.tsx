@@ -81,27 +81,29 @@ function generatePalette(primary: string, secondary: string) {
   const [mh, ms, ml] = hexToHsl(mutedHex);
   const [mfh, mfs, mfl] = hexToHsl(mutedFgHex);
 
+  const borderHex = hslToHex(sh, Math.max(ss - 15, 5), Math.min(sl + 10, 90));
+
   return {
-    "--primary": hslString(ph, ps, pl),
-    "--primary-foreground": hslString(pfh, pfs, pfl),
-    "--secondary": hslString(sh, ss, sl),
-    "--secondary-foreground": hslString(sfh, sfs, sfl),
+    "--primary": primary,
+    "--primary-foreground": pFg,
+    "--secondary": secondary,
+    "--secondary-foreground": sFg,
     "--brand": primary,
     "--brand-foreground": pFg,
-    "--accent": hslString(sh, Math.max(ss - 10, 5), accentL),
-    "--accent-foreground": hslString(afh, afs, afl),
-    "--muted": hslString(mh, ms, ml),
-    "--muted-foreground": hslString(mfh, mfs, mfl),
-    "--ring": hslString(ph, ps, pl),
-    "--destructive": "0 72% 41%",
-    "--background": "0 0% 100%",
-    "--foreground": "240 6% 10%",
-    "--card": "0 0% 100%",
-    "--card-foreground": "240 6% 10%",
-    "--popover": "0 0% 100%",
-    "--popover-foreground": "240 6% 10%",
-    "--border": hslString(sh, Math.max(ss - 15, 5), Math.min(sl + 10, 90)),
-    "--input": hslString(sh, Math.max(ss - 15, 5), Math.min(sl + 10, 90)),
+    "--accent": accentHex,
+    "--accent-foreground": accentFg,
+    "--muted": mutedHex,
+    "--muted-foreground": mutedFgHex,
+    "--ring": primary,
+    "--destructive": "#B91C1C",
+    "--background": "#FFFFFF",
+    "--foreground": "#18181B",
+    "--card": "#FFFFFF",
+    "--card-foreground": "#18181B",
+    "--popover": "#FFFFFF",
+    "--popover-foreground": "#18181B",
+    "--border": borderHex,
+    "--input": borderHex,
   };
 }
 
@@ -324,8 +326,7 @@ const theme = createTheme({
           {Object.entries(palette)
             .filter(([k]) => !k.includes("foreground") && k !== "--ring" && k !== "--input")
             .map(([key, val]) => {
-              const isHex = val.startsWith("#");
-              const bg = isHex ? val : `hsl(${val})`;
+              const bg = val;
               return (
                 <div key={key} className="border rounded-md p-3 flex items-center gap-3">
                   <div className="w-8 h-8 rounded-md border shrink-0" style={{ backgroundColor: bg }} />
