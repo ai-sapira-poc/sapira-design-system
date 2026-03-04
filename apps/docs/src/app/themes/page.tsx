@@ -143,6 +143,9 @@ const demoCols: ColumnDef<Row>[] = [
 export default function ThemesPage() {
   const [primary, setPrimary] = useState("#2563EB");
   const [secondary, setSecondary] = useState("#DBEAFE");
+  const [radius, setRadius] = useState<"sharp" | "soft" | "rounded">("soft");
+
+  const radiusValue = radius === "sharp" ? "0px" : radius === "soft" ? "0.5rem" : "1rem";
 
   const palette = useMemo(() => generatePalette(primary, secondary), [primary, secondary]);
 
@@ -151,8 +154,9 @@ export default function ThemesPage() {
     for (const [k, v] of Object.entries(palette)) {
       vars[k] = v;
     }
+    vars["--radius"] = radiusValue;
     return vars;
-  }, [palette]);
+  }, [palette, radiusValue]);
 
   const copyThemeConfig = useCallback(() => {
     const [ph, ps, pl] = hexToHsl(primary);
@@ -161,9 +165,10 @@ export default function ThemesPage() {
 const theme = createTheme({
   name: "custom",
   brand: "${hslString(ph, ps, pl)}",
+  radius: "${radiusValue}",
 });`;
     navigator.clipboard.writeText(code);
-  }, [primary]);
+  }, [primary, radiusValue]);
 
   const handleHexInput = (
     value: string,
@@ -252,12 +257,58 @@ const theme = createTheme({
           ))}
         </div>
 
+        {/* Corner Radius */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Corner Radius</label>
+          <div className="flex gap-2">
+            {(["sharp", "soft", "rounded"] as const).map((r) => (
+              <button
+                key={r}
+                onClick={() => setRadius(r)}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 text-sm border transition-colors ${
+                  radius === r
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "hover:bg-accent"
+                }`}
+                style={{ borderRadius: r === "sharp" ? "0px" : r === "soft" ? "0.5rem" : "1rem" }}
+              >
+                <span
+                  className="w-5 h-5 border-2 border-current"
+                  style={{ borderRadius: r === "sharp" ? "0px" : r === "soft" ? "4px" : "8px" }}
+                />
+                {r.charAt(0).toUpperCase() + r.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <button
           onClick={copyThemeConfig}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
         >
           📋 Copy Theme Config
         </button>
+      </section>
+
+      {/* Generated palette */}
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Generated Palette</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {Object.entries(palette)
+            .filter(([k]) => !k.includes("foreground") && k !== "--ring" && k !== "--input")
+            .map(([key, val]) => {
+              const bg = val;
+              return (
+                <div key={key} className="border rounded-md p-3 flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-md border shrink-0" style={{ backgroundColor: bg }} />
+                  <div>
+                    <p className="text-xs font-mono">{key.replace("--", "")}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono">{val}</p>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
       </section>
 
       {/* Live preview */}
@@ -427,26 +478,6 @@ const theme = createTheme({
         </div>
       </section>
 
-      {/* Generated palette */}
-      <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Generated Palette</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {Object.entries(palette)
-            .filter(([k]) => !k.includes("foreground") && k !== "--ring" && k !== "--input")
-            .map(([key, val]) => {
-              const bg = val;
-              return (
-                <div key={key} className="border rounded-md p-3 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-md border shrink-0" style={{ backgroundColor: bg }} />
-                  <div>
-                    <p className="text-xs font-mono">{key.replace("--", "")}</p>
-                    <p className="text-[10px] text-muted-foreground font-mono">{val}</p>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-      </section>
     </div>
   );
 }
