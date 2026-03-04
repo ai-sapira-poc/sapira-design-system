@@ -3,6 +3,8 @@
 import * as React from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { NumberTicker } from "../effects/number-ticker";
+import { GlowingEffect } from "../effects/glowing-effect";
 
 export interface MetricsCardProps extends React.ComponentProps<"div"> {
   label: string;
@@ -13,6 +15,8 @@ export interface MetricsCardProps extends React.ComponentProps<"div"> {
   };
   icon?: React.ReactNode;
   description?: string;
+  animated?: boolean;
+  glowing?: boolean;
 }
 
 function MetricsCard({
@@ -21,10 +25,12 @@ function MetricsCard({
   change,
   icon,
   description,
+  animated = false,
+  glowing = false,
   className,
   ...props
 }: MetricsCardProps) {
-  return (
+  const card = (
     <div
       className={cn(
         "rounded-lg border border-border bg-background p-4 transition-colors hover:bg-muted/30",
@@ -37,7 +43,13 @@ function MetricsCard({
         {icon && <span className="text-muted-foreground [&_svg]:h-4 [&_svg]:w-4">{icon}</span>}
       </div>
       <div className="mt-2 flex items-baseline gap-2">
-        <span className="text-2xl font-semibold tabular-nums">{value}</span>
+        <span className="text-2xl font-semibold tabular-nums">
+          {animated && typeof value === "number" ? (
+            <NumberTicker value={value} />
+          ) : (
+            value
+          )}
+        </span>
         {change && (
           <span
             className={cn(
@@ -57,6 +69,12 @@ function MetricsCard({
       {description && <p className="mt-1 text-xs text-muted-foreground">{description}</p>}
     </div>
   );
+
+  if (glowing) {
+    return <GlowingEffect className="rounded-lg">{card}</GlowingEffect>;
+  }
+
+  return card;
 }
 
 export { MetricsCard };

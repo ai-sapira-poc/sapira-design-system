@@ -33,3 +33,4 @@ export { Switch, type SwitchProps } from "./switch";
 export { RadioGroup, type RadioGroupProps, type RadioGroupOption } from "./radio-group";
 export { DatePicker, type DatePickerProps } from "./date-picker";
 export { FileUpload, type FileUploadProps } from "./file-upload";
+export { ExpandableTabs, type ExpandableTabsProps, type ExpandableTab } from "./expandable-tabs";

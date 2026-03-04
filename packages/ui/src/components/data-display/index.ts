@@ -10,3 +10,5 @@ export { LineChart, type LineChartProps, type LineChartLine } from "./line-chart
 export { AreaChart, type AreaChartProps, type AreaChartArea } from "./area-chart";
 export { PieChart, type PieChartProps, type PieChartDatum } from "./pie-chart";
 export { Sparkline, type SparklineProps } from "./sparkline";
+export { DisplayCards, DisplayCard, type DisplayCardsProps, type DisplayCardProps } from "./display-card";
+export { Marquee, type MarqueeProps } from "./marquee";

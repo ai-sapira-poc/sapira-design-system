@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { cn } from "../../lib/utils";
+import { NumberTicker } from "../effects/number-ticker";
+import { GlowingEffect } from "../effects/glowing-effect";
 
 export interface StatCardProps {
   value: string | number;
@@ -10,11 +12,13 @@ export interface StatCardProps {
   highlight?: boolean;
   color?: string;
   className?: string;
+  animated?: boolean;
+  glowing?: boolean;
 }
 
-function StatCard({ value, label, onClick, highlight, color, className }: StatCardProps) {
+function StatCard({ value, label, onClick, highlight, color, className, animated = false, glowing = false }: StatCardProps) {
   const Comp = onClick ? "button" : "div";
-  return (
+  const card = (
     <Comp
       onClick={onClick}
       className={cn(
@@ -25,11 +29,17 @@ function StatCard({ value, label, onClick, highlight, color, className }: StatCa
       )}
     >
       <p className={cn("text-2xl font-bold tabular-nums", color)} style={color?.startsWith("#") ? { color } : undefined}>
-        {value}
+        {animated && typeof value === "number" ? <NumberTicker value={value} /> : value}
       </p>
       <p className="text-xs text-muted-foreground mt-1">{label}</p>
     </Comp>
   );
+
+  if (glowing) {
+    return <GlowingEffect className="rounded-lg">{card}</GlowingEffect>;
+  }
+
+  return card;
 }
 
 export { StatCard };

@@ -13,6 +13,9 @@ export * from "./components/data-display";
 // Feedback
 export * from "./components/feedback";
 
+// Effects
+export * from "./components/effects";
+
 // AI
 export * from "./components/ai";
 

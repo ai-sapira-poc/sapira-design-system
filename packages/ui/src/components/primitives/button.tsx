@@ -18,6 +18,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        shimmer:
+          "relative overflow-hidden bg-primary text-primary-foreground hover:bg-primary/90 [&>.shimmer-layer]:absolute [&>.shimmer-layer]:inset-0 [&>.shimmer-layer]:bg-[linear-gradient(120deg,transparent_25%,rgba(255,255,255,0.3)_50%,transparent_75%)] [&>.shimmer-layer]:bg-[length:200%_100%] [&>.shimmer-layer]:animate-[shimmer-sweep_3s_ease-in-out_infinite]",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

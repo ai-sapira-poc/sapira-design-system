@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@sapira/ui";
-import { ArrowLeft, Shield, Clock, BookOpen } from "lucide-react";
+import {
+  Tooltip, TooltipTrigger, TooltipContent, TooltipProvider,
+  AnimatedBackground, Marquee,
+} from "@sapira/ui";
+import { ArrowLeft, Shield, Clock, BookOpen, Sparkles, Lock, Zap, Globe } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,13 +38,23 @@ const trustItems = [
   { icon: BookOpen, label: "Guided process" },
 ];
 
+const marqueeItems = [
+  { icon: Shield, label: "SOC 2 Compliant" },
+  { icon: Lock, label: "End-to-End Encrypted" },
+  { icon: Zap, label: "99.9% Uptime" },
+  { icon: Globe, label: "Global CDN" },
+  { icon: Sparkles, label: "AI-Powered" },
+  { icon: Shield, label: "GDPR Ready" },
+  { icon: Zap, label: "Sub-100ms Latency" },
+  { icon: Globe, label: "24/7 Support" },
+];
+
 const defaultHeading = "Welcome";
 
 export default function WelcomePattern() {
   const [lang, setLang] = useState("en");
   const [hoveredLang, setHoveredLang] = useState<string | null>(null);
 
-  // Dynamic heading: shows hovered language label, falls back to "Welcome"
   const displayHeading = hoveredLang
     ? languages.find((l) => l.id === hoveredLang)?.label ?? defaultHeading
     : defaultHeading;
@@ -49,15 +62,8 @@ export default function WelcomePattern() {
   return (
     <TooltipProvider delayDuration={300}>
       <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-background">
-        {/* Dot pattern background */}
-        <div
-          className="pointer-events-none absolute inset-0 text-foreground"
-          style={{
-            backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-            opacity: 0.015,
-          }}
-        />
+        {/* Aurora animated background */}
+        <AnimatedBackground variant="aurora" speed="slow" className="absolute inset-0" />
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-primary/[0.01]" />
 
@@ -86,7 +92,6 @@ export default function WelcomePattern() {
           initial="hidden"
           animate="visible"
         >
-          {/* Welcome heading — changes on language hover */}
           <motion.div variants={itemVariants} className="text-center mb-4">
             <AnimatePresence mode="wait">
               <motion.h1
@@ -109,7 +114,7 @@ export default function WelcomePattern() {
             Let&apos;s get you set up. Choose your preferred language to continue.
           </motion.p>
 
-          {/* Language selector with animated underline */}
+          {/* Language selector */}
           <motion.div variants={itemVariants} className="mt-10 flex items-center gap-6">
             {languages.map((l) => (
               <Tooltip key={l.id}>
@@ -144,14 +149,14 @@ export default function WelcomePattern() {
           </motion.div>
         </motion.div>
 
-        {/* Trust bar */}
+        {/* Trust bar (original) */}
         <Tooltip>
           <TooltipTrigger asChild>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="relative z-10 flex items-center justify-center gap-6 pb-10 px-6 cursor-help"
+              className="relative z-10 flex items-center justify-center gap-6 pb-6 px-6 cursor-help"
             >
               {trustItems.map((item, i) => {
                 const Icon = item.icon;
@@ -167,6 +172,26 @@ export default function WelcomePattern() {
           </TooltipTrigger>
           <TooltipContent>This process is secure, quick, and fully guided</TooltipContent>
         </Tooltip>
+
+        {/* Marquee trust strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="relative z-10 pb-8 border-t border-border/30"
+        >
+          <Marquee speed={30} gap={32} className="py-4">
+            {marqueeItems.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="flex items-center gap-2 text-muted-foreground/40">
+                  <Icon className="h-3.5 w-3.5" />
+                  <span className="text-xs whitespace-nowrap">{item.label}</span>
+                </div>
+              );
+            })}
+          </Marquee>
+        </motion.div>
       </div>
     </TooltipProvider>
   );

@@ -33,6 +33,7 @@ const navigation = [
       { label: "RadioGroup", href: "/components/radio-group" },
       { label: "DatePicker", href: "/components/date-picker" },
       { label: "FileUpload", href: "/components/file-upload" },
+      { label: "ExpandableTabs", href: "/components/expandable-tabs" },
     ],
   },
   {
@@ -53,6 +54,8 @@ const navigation = [
       { label: "GuidedPanel", href: "/components/guided-panel" },
       { label: "HeroSection", href: "/components/hero-section" },
       { label: "Sidebar", href: "/components/sidebar" },
+      { label: "BentoGrid", href: "/components/bento-grid" },
+      { label: "AnimatedBackground", href: "/components/animated-background" },
     ],
   },
   {
@@ -71,6 +74,8 @@ const navigation = [
       { label: "PieChart", href: "/components/pie-chart" },
       { label: "AreaChart", href: "/components/area-chart" },
       { label: "Sparkline", href: "/components/sparkline" },
+      { label: "Marquee", href: "/components/marquee" },
+      { label: "DisplayCard", href: "/components/display-card" },
     ],
   },
   {
