@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
 export interface MovingBorderProps {
   duration?: number;
   borderRadius?: string;
   colors?: string[];
+  borderWidth?: number;
   className?: string;
   children?: React.ReactNode;
   as?: React.ElementType;
@@ -17,40 +17,47 @@ function MovingBorder({
   duration = 3000,
   borderRadius = "1rem",
   colors,
+  borderWidth = 2,
   className,
   children,
   as: Component = "div",
 }: MovingBorderProps) {
   const c = colors ?? ["var(--primary, #2563eb)", "transparent", "var(--primary, #2563eb)"];
+  const id = React.useId().replace(/:/g, "");
 
   return (
-    <Component
-      className={cn("relative overflow-hidden p-[2px]", className)}
-      style={{ borderRadius }}
-    >
-      <div className="absolute inset-0 overflow-hidden" style={{ borderRadius }}>
-        <motion.div
-          className="absolute h-[300%] w-[300%]"
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes sapira-moving-border-${id} {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `,
+        }}
+      />
+      <Component
+        className={cn("relative overflow-hidden group", className)}
+        style={{ borderRadius, padding: borderWidth }}
+      >
+        {/* Rotating gradient */}
+        <div
+          className="absolute inset-[-50%] z-0"
           style={{
-            top: "-100%",
-            left: "-100%",
             background: `conic-gradient(from 0deg, ${c.join(", ")})`,
-          }}
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: duration / 1000,
-            repeat: Infinity,
-            ease: "linear",
+            animation: `sapira-moving-border-${id} ${duration / 1000}s linear infinite`,
           }}
         />
-      </div>
-      <div
-        className="relative z-10 bg-background"
-        style={{ borderRadius: `calc(${borderRadius} - 2px)` }}
-      >
-        {children}
-      </div>
-    </Component>
+        {/* Inner content */}
+        <div
+          className="relative z-10 bg-background transition-colors group-hover:bg-accent/30"
+          style={{ borderRadius: `calc(${borderRadius} - ${borderWidth}px)` }}
+        >
+          {children}
+        </div>
+      </Component>
+    </>
   );
 }
 

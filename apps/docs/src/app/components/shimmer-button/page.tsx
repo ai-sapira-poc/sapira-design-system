@@ -23,7 +23,7 @@ export default function ShimmerButtonPage() {
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Custom Colors</h2>
         <div className="flex gap-4 items-center flex-wrap">
-          <ShimmerButton background="hsl(var(--destructive))" shimmerColor="rgba(255,255,255,0.4)">
+          <ShimmerButton background="#dc2626" shimmerColor="rgba(255,255,255,0.4)">
             Delete Account
           </ShimmerButton>
           <ShimmerButton background="#059669" shimmerColor="rgba(255,255,255,0.25)">

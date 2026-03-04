@@ -22,7 +22,7 @@ function ShimmerButton({
   return (
     <button
       className={cn(
-        "group relative inline-flex h-9 items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-primary-foreground transition-all disabled:pointer-events-none disabled:opacity-50",
+        "group relative inline-flex h-9 items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110 hover:scale-[1.02] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
         className
       )}
       style={{ background }}
