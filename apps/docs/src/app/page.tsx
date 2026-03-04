@@ -61,8 +61,12 @@ import { Button, Badge, ThemeProvider } from "@sapira/ui";`}</code>
       </div>
 
       {/* Component Showcase */}
-      <div className="space-y-8">
-        <h2 className="text-lg font-semibold">Component Showcase</h2>
+      <details className="space-y-8 group">
+        <summary className="text-lg font-semibold cursor-pointer list-none flex items-center gap-2 select-none">
+          <svg className="h-4 w-4 transition-transform group-open:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" /></svg>
+          Component Showcase
+        </summary>
+        <div className="space-y-8 pt-4">
 
         {/* Page Header */}
         <div className="space-y-2">
@@ -192,7 +196,8 @@ import { Button, Badge, ThemeProvider } from "@sapira/ui";`}</code>
             />
           </div>
         </div>
-      </div>
+        </div>
+      </details>
     </div>
   );
 }

@@ -99,7 +99,6 @@ const navigation = [
       { label: "ShimmerButton", href: "/components/shimmer-button" },
       { label: "NumberTicker", href: "/components/number-ticker" },
       { label: "TextShimmer", href: "/components/text-shimmer" },
-      { label: "MovingBorder", href: "/components/moving-border" },
       { label: "AnimatedBackground", href: "/components/animated-background" },
     ],
   },
