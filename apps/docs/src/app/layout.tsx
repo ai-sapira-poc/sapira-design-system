@@ -28,6 +28,11 @@ const navigation = [
       { label: "RoleCard", href: "/components/role-card" },
       { label: "TrustBar", href: "/components/trust-bar" },
       { label: "LanguageSelector", href: "/components/language-selector" },
+      { label: "Textarea", href: "/components/textarea" },
+      { label: "Switch", href: "/components/switch" },
+      { label: "RadioGroup", href: "/components/radio-group" },
+      { label: "DatePicker", href: "/components/date-picker" },
+      { label: "FileUpload", href: "/components/file-upload" },
     ],
   },
   {
@@ -61,6 +66,11 @@ const navigation = [
       { label: "Skeleton", href: "/components/skeleton" },
       { label: "StatCard", href: "/components/stat-card" },
       { label: "ProgressBar", href: "/components/progress-bar" },
+      { label: "BarChart", href: "/components/bar-chart" },
+      { label: "LineChart", href: "/components/line-chart" },
+      { label: "PieChart", href: "/components/pie-chart" },
+      { label: "AreaChart", href: "/components/area-chart" },
+      { label: "Sparkline", href: "/components/sparkline" },
     ],
   },
   {
@@ -75,6 +85,9 @@ const navigation = [
       { label: "NotificationCard", href: "/components/notification-card" },
       { label: "NotificationBell", href: "/components/notification-bell" },
       { label: "CompactStepper", href: "/components/compact-stepper" },
+      { label: "Alert", href: "/components/alert" },
+      { label: "Spinner", href: "/components/spinner" },
+      { label: "Pagination", href: "/components/pagination" },
     ],
   },
   {

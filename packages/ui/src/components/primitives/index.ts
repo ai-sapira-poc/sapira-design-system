@@ -28,3 +28,8 @@ export { IconTile, iconTileVariants, type IconTileProps } from "./icon-tile";
 export { RoleCard, type RoleCardProps } from "./role-card";
 export { TrustBar, type TrustBarProps, type TrustBarItem } from "./trust-bar";
 export { LanguageSelector, type LanguageSelectorProps, type LanguageSelectorOption } from "./language-selector";
+export { Textarea, type TextareaProps } from "./textarea";
+export { Switch, type SwitchProps } from "./switch";
+export { RadioGroup, type RadioGroupProps, type RadioGroupOption } from "./radio-group";
+export { DatePicker, type DatePickerProps } from "./date-picker";
+export { FileUpload, type FileUploadProps } from "./file-upload";

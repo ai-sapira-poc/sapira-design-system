@@ -7,3 +7,6 @@ export { WizardStepper, type WizardStepperProps, type WizardStep } from "./wizar
 export { NotificationCard, type NotificationCardProps } from "./notification-card";
 export { NotificationBell, type NotificationBellProps } from "./notification-bell";
 export { CompactStepper, type CompactStepperProps, type CompactStep } from "./compact-stepper";
+export { Alert, type AlertProps, type AlertVariant } from "./alert";
+export { Spinner, type SpinnerProps } from "./spinner";
+export { Pagination, type PaginationProps } from "./pagination";

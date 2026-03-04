@@ -5,3 +5,8 @@ export { Timeline, timelineIconVariants, type TimelineEvent, type TimelineProps 
 export { EmptyState, type EmptyStateProps } from "./empty-state";
 export { Skeleton, skeletonVariants, type SkeletonProps } from "./skeleton";
 export { StatCard, type StatCardProps } from "./stat-card";
+export { BarChart, type BarChartProps, type BarChartBar } from "./bar-chart";
+export { LineChart, type LineChartProps, type LineChartLine } from "./line-chart";
+export { AreaChart, type AreaChartProps, type AreaChartArea } from "./area-chart";
+export { PieChart, type PieChartProps, type PieChartDatum } from "./pie-chart";
+export { Sparkline, type SparklineProps } from "./sparkline";

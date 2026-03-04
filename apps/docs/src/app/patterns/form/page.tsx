@@ -8,6 +8,11 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
+  Textarea,
+  Switch,
+  RadioGroup,
+  DatePicker,
+  FileUpload,
 } from "@sapira/ui";
 
 function Field({
@@ -97,6 +102,31 @@ export default function FormPatternPage() {
                 </SelectContent>
               </Select>
             </Field>
+
+            <Field label="Description" htmlFor="project-textarea">
+              <Textarea id="project-textarea" placeholder="Detailed project description…" rows={4} maxLength={500} />
+            </Field>
+
+            <Field label="Preferred Contact Method">
+              <RadioGroup
+                options={[
+                  { label: "Email", value: "email" },
+                  { label: "Phone", value: "phone" },
+                  { label: "Slack", value: "slack" },
+                ]}
+              />
+            </Field>
+
+            <Field label="Start Date">
+              <DatePicker placeholder="Select start date" />
+            </Field>
+
+            <div className="space-y-3">
+              <Switch label="Enable notifications" description="Receive updates about this project." />
+              <Switch label="Make public" description="Allow anyone in the organization to view." />
+            </div>
+
+            <FileUpload label="Attachments" accept=".pdf,.png,.jpg" maxFiles={5} maxSizeMB={10} description="PDF or images, up to 10 MB each" />
 
             <div className="flex gap-3 pt-2">
               <Button type="submit">Create Project</Button>
