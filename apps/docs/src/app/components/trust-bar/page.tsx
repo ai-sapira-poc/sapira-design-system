@@ -1,6 +1,7 @@
 "use client";
 
 import { TrustBar } from "@sapira/ui";
+import { Shield, Clock, BookOpen, CreditCard, X, Repeat } from "lucide-react";
 
 export default function TrustBarPage() {
   return (
@@ -17,9 +18,9 @@ export default function TrustBarPage() {
         <div className="border rounded-lg p-6">
           <TrustBar
             items={[
-              { icon: <span>🔒</span>, label: "Secure data" },
-              { icon: <span>⏱️</span>, label: "5 minutes" },
-              { icon: <span>📋</span>, label: "Guided process" },
+              { icon: <Shield className="h-3.5 w-3.5" />, label: "Secure data" },
+              { icon: <Clock className="h-3.5 w-3.5" />, label: "5 minutes" },
+              { icon: <BookOpen className="h-3.5 w-3.5" />, label: "Guided process" },
             ]}
           />
         </div>
@@ -31,9 +32,9 @@ export default function TrustBarPage() {
           <TrustBar
             separator="|"
             items={[
-              { label: "Free trial" },
-              { label: "No credit card" },
-              { label: "Cancel anytime" },
+              { icon: <CreditCard className="h-3.5 w-3.5" />, label: "Free trial" },
+              { icon: <X className="h-3.5 w-3.5" />, label: "No credit card" },
+              { icon: <Repeat className="h-3.5 w-3.5" />, label: "Cancel anytime" },
             ]}
           />
         </div>

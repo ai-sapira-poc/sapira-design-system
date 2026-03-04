@@ -1,6 +1,7 @@
 "use client";
 
 import { IconTile } from "@sapira/ui";
+import { FileText, Package, Lock, Zap, BarChart3, Settings } from "lucide-react";
 
 export default function IconTilePage() {
   return (
@@ -15,18 +16,27 @@ export default function IconTilePage() {
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Variants</h2>
         <div className="flex gap-4 flex-wrap">
-          <IconTile icon={<span>📋</span>} label="Solid" variant="solid" />
-          <IconTile icon={<span>📦</span>} label="Outline" variant="outline" />
-          <IconTile icon={<span>🔒</span>} label="Coming Soon" variant="dashed" />
+          <IconTile icon={<FileText className="h-6 w-6" />} label="Solid" variant="solid" />
+          <IconTile icon={<Package className="h-6 w-6" />} label="Outline" variant="outline" />
+          <IconTile icon={<Lock className="h-6 w-6" />} label="Coming Soon" variant="dashed" />
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Grid Example</h2>
+        <div className="grid grid-cols-3 gap-3 max-w-sm">
+          <IconTile icon={<FileText className="h-6 w-6" />} label="Documents" />
+          <IconTile icon={<BarChart3 className="h-6 w-6" />} label="Reports" />
+          <IconTile icon={<Settings className="h-6 w-6" />} label="Settings" />
         </div>
       </section>
 
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Sizes</h2>
         <div className="flex gap-4 items-end flex-wrap">
-          <IconTile icon={<span>⚡</span>} label="Small" size="sm" />
-          <IconTile icon={<span>⚡</span>} label="Medium" size="md" />
-          <IconTile icon={<span>⚡</span>} label="Large" size="lg" />
+          <IconTile icon={<Zap className="h-4 w-4" />} label="Small" size="sm" />
+          <IconTile icon={<Zap className="h-6 w-6" />} label="Medium" size="md" />
+          <IconTile icon={<Zap className="h-8 w-8" />} label="Large" size="lg" />
         </div>
       </section>
 

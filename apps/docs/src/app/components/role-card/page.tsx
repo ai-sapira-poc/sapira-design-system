@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { RoleCard } from "@sapira/ui";
+import { Shield, Search, Eye } from "lucide-react";
 
 export default function RoleCardPage() {
   const [selected, setSelected] = useState<string | null>(null);
+
+  const roles = [
+    { id: "admin", icon: <Shield className="h-5 w-5" />, title: "Administrator", description: "Full access to all settings and data" },
+    { id: "reviewer", icon: <Search className="h-5 w-5" />, title: "Reviewer", description: "Can review and approve submissions" },
+    { id: "viewer", icon: <Eye className="h-5 w-5" />, title: "Viewer", description: "Read-only access to dashboards" },
+  ];
 
   return (
     <div className="space-y-10">
@@ -18,14 +25,10 @@ export default function RoleCardPage() {
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Interactive Selection</h2>
         <div className="space-y-3 max-w-md">
-          {[
-            { id: "admin", icon: "👤", title: "Administrator", description: "Full access to all settings and data" },
-            { id: "reviewer", icon: "🔍", title: "Reviewer", description: "Can review and approve submissions" },
-            { id: "viewer", icon: "👁️", title: "Viewer", description: "Read-only access to dashboards" },
-          ].map((role) => (
+          {roles.map((role) => (
             <RoleCard
               key={role.id}
-              icon={<span>{role.icon}</span>}
+              icon={role.icon}
               title={role.title}
               description={role.description}
               selected={selected === role.id}
