@@ -22,6 +22,10 @@ const navigation = [
       { label: "CardSelector", href: "/components/card-selector" },
       { label: "SelectDropdown", href: "/components/select-dropdown" },
       { label: "UserProfile", href: "/components/user-profile" },
+      { label: "IconTile", href: "/components/icon-tile" },
+      { label: "RoleCard", href: "/components/role-card" },
+      { label: "TrustBar", href: "/components/trust-bar" },
+      { label: "LanguageSelector", href: "/components/language-selector" },
     ],
   },
   {
@@ -40,6 +44,7 @@ const navigation = [
       { label: "AppShell", href: "/components/app-shell" },
       { label: "PageHeader", href: "/components/page-header" },
       { label: "GuidedPanel", href: "/components/guided-panel" },
+      { label: "HeroSection", href: "/components/hero-section" },
     ],
   },
   {
@@ -84,6 +89,8 @@ const navigation = [
       { label: "CRUD", href: "/patterns/crud" },
       { label: "Wizard", href: "/patterns/wizard" },
       { label: "Form", href: "/patterns/form" },
+      { label: "Project Landing", href: "/patterns/project-landing" },
+      { label: "Welcome", href: "/patterns/welcome" },
     ],
   },
 ];

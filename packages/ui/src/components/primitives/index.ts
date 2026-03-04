@@ -24,3 +24,7 @@ export { ProgressBar, type ProgressBarProps } from "./progress-bar";
 export { CardSelector, type CardSelectorProps, type CardSelectorOption } from "./card-selector";
 export { SelectDropdown, type SelectDropdownProps, type SelectDropdownOption } from "./select-dropdown";
 export { UserProfile, type UserProfileProps } from "./user-profile";
+export { IconTile, iconTileVariants, type IconTileProps } from "./icon-tile";
+export { RoleCard, type RoleCardProps } from "./role-card";
+export { TrustBar, type TrustBarProps, type TrustBarItem } from "./trust-bar";
+export { LanguageSelector, type LanguageSelectorProps, type LanguageSelectorOption } from "./language-selector";
