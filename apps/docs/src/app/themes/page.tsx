@@ -9,8 +9,16 @@ import {
   StatusBadge,
   AIBadge,
   Input,
+  Timeline,
+  EmptyState,
+  WizardStepper,
+  SearchBox,
+  Skeleton,
+  FilterBar,
+  PageHeader,
 } from "@sapira/ui";
 import type { ColumnDef } from "@sapira/ui";
+import { Search, Users, FileText, Package, TrendingUp, BarChart3, Settings } from "lucide-react";
 
 // ─── Color utilities ───────────────────────────────────────────────
 
@@ -256,13 +264,28 @@ const theme = createTheme({
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Live Preview</h2>
         <div
-          className="border rounded-xl p-6 space-y-6"
+          className="border rounded-xl p-6 space-y-8"
           style={cssVars as React.CSSProperties}
         >
+          {/* Page Header */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Page Header</p>
+            <PageHeader
+              title="Project Dashboard"
+              description="Overview of project metrics and recent activity"
+              actions={
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">Export</Button>
+                  <Button size="sm">New Project</Button>
+                </div>
+              }
+            />
+          </div>
+
           {/* Buttons */}
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Buttons</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 items-center">
               <Button>Primary</Button>
               <Button variant="secondary">Secondary</Button>
               <Button variant="outline">Outline</Button>
@@ -270,38 +293,76 @@ const theme = createTheme({
               <Button variant="link">Link</Button>
               <Button variant="destructive">Destructive</Button>
             </div>
+            <div className="flex flex-wrap gap-2 items-center mt-3">
+              <Button size="sm">Small</Button>
+              <Button size="default">Default</Button>
+              <Button size="lg">Large</Button>
+              <Button size="icon"><Settings className="h-4 w-4" /></Button>
+            </div>
           </div>
 
           {/* Badges */}
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Badges</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 items-center">
               <Badge>Default</Badge>
               <Badge variant="secondary">Secondary</Badge>
               <Badge variant="destructive">Destructive</Badge>
               <Badge variant="outline">Outline</Badge>
-            </div>
-          </div>
-
-          {/* Status + AI badges */}
-          <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Status &amp; AI</p>
-            <div className="flex flex-wrap gap-2 items-center">
               <StatusBadge status="active" />
               <StatusBadge status="pending" />
               <StatusBadge status="error" />
               <StatusBadge status="info" />
               <AIBadge />
+              <AIBadge label="Generated" size="md" />
             </div>
           </div>
 
-          {/* MetricsCard */}
+          {/* Search & Filters */}
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Metrics Card</p>
-            <div className="grid grid-cols-3 gap-4">
-              <MetricsCard label="Revenue" value="$48,200" change={{ value: 12.5, trend: "positive" }} />
-              <MetricsCard label="Orders" value="1,243" change={{ value: -2.1, trend: "negative" }} />
-              <MetricsCard label="Users" value="8,491" change={{ value: 4.3, trend: "positive" }} />
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Search &amp; Filters</p>
+            <div className="space-y-3">
+              <SearchBox placeholder="Search projects, users, documents..." shortcut="⌘K" onSearch={() => {}} />
+              <FilterBar
+                filters={[
+                  { label: "Status", value: "status", options: [{ label: "Active", value: "active" }, { label: "Pending", value: "pending" }, { label: "Archived", value: "archived" }] },
+                  { label: "Role", value: "role", options: [{ label: "Admin", value: "admin" }, { label: "Editor", value: "editor" }, { label: "Viewer", value: "viewer" }] },
+                ]}
+                activeFilters={{}}
+                onChange={() => {}}
+                onClear={() => {}}
+              />
+            </div>
+          </div>
+
+          {/* Form Inputs */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Form Inputs</p>
+            <div className="grid grid-cols-2 gap-4 max-w-lg">
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Project Name</label>
+                <Input placeholder="Enter name..." />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Email</label>
+                <Input type="email" placeholder="you@company.com" />
+              </div>
+              <div className="space-y-1 col-span-2">
+                <label className="text-sm font-medium text-destructive">Invalid Field</label>
+                <Input error placeholder="This field has an error" />
+                <p className="text-xs text-destructive">This field is required</p>
+              </div>
+            </div>
+          </div>
+
+          {/* MetricsCards */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Metrics Cards</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <MetricsCard label="Revenue" value="$48,200" change={{ value: 12.5, trend: "positive" }} icon={<TrendingUp className="h-4 w-4" />} />
+              <MetricsCard label="Orders" value="1,243" change={{ value: -2.1, trend: "negative" }} icon={<Package className="h-4 w-4" />} />
+              <MetricsCard label="Users" value="8,491" change={{ value: 4.3, trend: "positive" }} icon={<Users className="h-4 w-4" />} />
+              <MetricsCard label="Reports" value="342" description="This quarter" icon={<BarChart3 className="h-4 w-4" />} />
             </div>
           </div>
 
@@ -311,10 +372,57 @@ const theme = createTheme({
             <DataTable columns={demoCols} data={demoRows} />
           </div>
 
-          {/* Input */}
+          {/* Timeline */}
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Input</p>
-            <Input placeholder="Type something…" className="max-w-sm" />
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Timeline</p>
+            <div className="max-w-md">
+              <Timeline
+                events={[
+                  { id: "1", title: "Project created", description: "Initial setup completed", timestamp: "2026-03-04T09:00:00Z", variant: "success" as const },
+                  { id: "2", title: "AI analysis started", description: "Processing 1,200 documents", timestamp: "2026-03-04T09:15:00Z", variant: "ai" as const },
+                  { id: "3", title: "Review required", description: "3 items flagged for review", timestamp: "2026-03-04T09:30:00Z", variant: "warning" as const },
+                  { id: "4", title: "Export completed", description: "Results exported successfully", timestamp: "2026-03-04T10:00:00Z", variant: "user" as const },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Wizard Stepper */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Wizard Stepper</p>
+            <WizardStepper
+              steps={[
+                { label: "Project Info", description: "Basic details" },
+                { label: "Configuration", description: "Set up parameters" },
+                { label: "Team Members", description: "Assign roles" },
+                { label: "Review", description: "Confirm & launch" },
+              ]}
+              currentStep={2}
+            />
+          </div>
+
+          {/* Skeletons */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Loading Skeletons</p>
+            <div className="flex gap-4 items-start">
+              <Skeleton variant="circular" width={48} height={48} />
+              <div className="space-y-2 flex-1">
+                <Skeleton variant="text" width="60%" />
+                <Skeleton variant="text" width="80%" />
+                <Skeleton variant="text" width="40%" />
+              </div>
+            </div>
+          </div>
+
+          {/* Empty State */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Empty State</p>
+            <EmptyState
+              icon={<FileText className="h-10 w-10" />}
+              title="No documents yet"
+              description="Upload your first document to get started with the analysis."
+              action={<Button>Upload Document</Button>}
+            />
           </div>
         </div>
       </section>
