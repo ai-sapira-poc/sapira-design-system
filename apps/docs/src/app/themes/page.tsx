@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from "react";
+import { ChevronDown } from "lucide-react";
 import {
   Button,
   Badge,
@@ -144,6 +145,8 @@ export default function ThemesPage() {
   const [primary, setPrimary] = useState("#2563EB");
   const [secondary, setSecondary] = useState("#DBEAFE");
   const [radius, setRadius] = useState<"sharp" | "soft" | "rounded">("soft");
+  const [copied, setCopied] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
 
   const radiusValue = radius === "sharp" ? "0px" : radius === "soft" ? "0.5rem" : "1rem";
 
@@ -283,39 +286,56 @@ const theme = createTheme({
         </div>
 
         <button
-          onClick={copyThemeConfig}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+          onClick={() => {
+            copyThemeConfig();
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
         >
-          📋 Copy Theme Config
+          {copied ? "✅ Copied!" : "📋 Copy Theme Config"}
         </button>
       </section>
 
-      {/* Generated palette */}
+      {/* Generated palette (collapsible) */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Generated Palette</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {Object.entries(palette)
-            .filter(([k]) => !k.includes("foreground") && k !== "--ring" && k !== "--input")
-            .map(([key, val]) => {
-              const bg = val;
-              return (
-                <div key={key} className="border rounded-md p-3 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-md border shrink-0" style={{ backgroundColor: bg }} />
-                  <div>
-                    <p className="text-xs font-mono">{key.replace("--", "")}</p>
-                    <p className="text-[10px] text-muted-foreground font-mono">{val}</p>
+        <button
+          onClick={() => setPaletteOpen((o) => !o)}
+          className="flex items-center gap-2 cursor-pointer group"
+        >
+          <h2 className="text-lg font-semibold">Generated Palette</h2>
+          <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${paletteOpen ? "rotate-180" : ""}`} />
+        </button>
+        {paletteOpen && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {Object.entries(palette)
+              .filter(([k]) => !k.includes("foreground") && k !== "--ring" && k !== "--input")
+              .map(([key, val]) => {
+                const bg = val;
+                return (
+                  <div key={key} className="border rounded-md p-3 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-md border shrink-0" style={{ backgroundColor: bg }} />
+                    <div>
+                      <p className="text-xs font-mono">{key.replace("--", "")}</p>
+                      <p className="text-[10px] text-muted-foreground font-mono">{val}</p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-        </div>
+                );
+              })}
+          </div>
+        )}
       </section>
 
       {/* Live preview */}
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Live Preview</h2>
+        <style>{`
+          .theme-preview [class*="rounded-md"] { border-radius: ${radiusValue} !important; }
+          .theme-preview [class*="rounded-lg"] { border-radius: ${radiusValue} !important; }
+          .theme-preview [class*="rounded-xl"] { border-radius: calc(${radiusValue} + 0.25rem) !important; }
+        `}</style>
         <div
-          className="border rounded-xl p-6 space-y-8"
+          className="theme-preview border rounded-xl p-6 space-y-8"
           style={cssVars as React.CSSProperties}
         >
           {/* Page Header */}

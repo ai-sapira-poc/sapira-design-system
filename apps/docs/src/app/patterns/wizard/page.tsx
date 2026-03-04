@@ -22,7 +22,7 @@ export default function WizardPattern() {
       </div>
 
       <div className="border rounded-lg p-8 max-w-2xl space-y-8">
-        <WizardStepper steps={steps} currentStep={current} onStepClick={setCurrent} />
+        <WizardStepper steps={steps} currentStep={current} onStepClick={(i) => { if (i < current) setCurrent(i); }} />
 
         <div className="min-h-[200px]">
           {current === 0 && (
