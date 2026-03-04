@@ -10,7 +10,10 @@ const navigation = [
   { label: "Overview", href: "/" },
   {
     label: "Primitives",
-    children: [{ label: "Button", href: "/components/button" }],
+    children: [
+      { label: "Button", href: "/components/button" },
+      { label: "Input", href: "/components/input" },
+    ],
   },
   {
     label: "Overlay",
@@ -65,6 +68,7 @@ const navigation = [
       { label: "Dashboard", href: "/patterns/dashboard" },
       { label: "CRUD", href: "/patterns/crud" },
       { label: "Wizard", href: "/patterns/wizard" },
+      { label: "Form", href: "/patterns/form" },
     ],
   },
   { label: "Themes", href: "/themes" },
