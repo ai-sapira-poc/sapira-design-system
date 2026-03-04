@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { DocsShell } from "./docs-shell";
 
 export const metadata: Metadata = {
   title: "Sapira Design System",
@@ -100,50 +101,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="antialiased">
-        <div className="flex min-h-screen">
-          {/* Sidebar */}
-          <aside className="w-64 border-r border-border bg-sidebar p-6 flex-shrink-0">
-            <div className="mb-8">
-              <h1 className="text-lg font-semibold tracking-tight">Sapira DS</h1>
-              <p className="text-xs text-muted-foreground mt-1">Design System</p>
-            </div>
-            <nav className="space-y-4">
-              {navigation.map((section, idx) =>
-                "type" in section && section.type === "separator" ? (
-                  <hr key={`sep-${idx}`} className="border-border" />
-                ) : "children" in section && section.children ? (
-                  <div key={section.label}>
-                    <p className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground mb-1 px-3">
-                      {section.label}
-                    </p>
-                    <div className="space-y-0.5">
-                      {section.children.map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          className="block px-3 py-1.5 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                        >
-                          {item.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <a
-                    key={"href" in section ? section.href : `item-${idx}`}
-                    href={"href" in section ? section.href : "#"}
-                    className="block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium"
-                  >
-                    {"label" in section ? section.label : ""}
-                  </a>
-                )
-              )}
-            </nav>
-          </aside>
-
-          {/* Main content */}
-          <main className="flex-1 p-8 max-w-4xl">{children}</main>
-        </div>
+        <DocsShell navigation={navigation as any}>
+          {children}
+        </DocsShell>
       </body>
     </html>
   );
