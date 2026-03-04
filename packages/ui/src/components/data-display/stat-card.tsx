@@ -3,7 +3,6 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import { NumberTicker } from "../effects/number-ticker";
-import { GlowingEffect } from "../effects/glowing-effect";
 
 export interface StatCardProps {
   value: string | number;
@@ -13,12 +12,11 @@ export interface StatCardProps {
   color?: string;
   className?: string;
   animated?: boolean;
-  glowing?: boolean;
 }
 
-function StatCard({ value, label, onClick, highlight, color, className, animated = false, glowing = false }: StatCardProps) {
+function StatCard({ value, label, onClick, highlight, color, className, animated = false }: StatCardProps) {
   const Comp = onClick ? "button" : "div";
-  const card = (
+  return (
     <Comp
       onClick={onClick}
       className={cn(
@@ -34,12 +32,6 @@ function StatCard({ value, label, onClick, highlight, color, className, animated
       <p className="text-xs text-muted-foreground mt-1">{label}</p>
     </Comp>
   );
-
-  if (glowing) {
-    return <GlowingEffect className="rounded-lg">{card}</GlowingEffect>;
-  }
-
-  return card;
 }
 
 export { StatCard };

@@ -4,8 +4,6 @@ import * as React from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { NumberTicker } from "../effects/number-ticker";
-import { GlowingEffect } from "../effects/glowing-effect";
-
 export interface MetricsCardProps extends React.ComponentProps<"div"> {
   label: string;
   value: string | number;
@@ -16,7 +14,6 @@ export interface MetricsCardProps extends React.ComponentProps<"div"> {
   icon?: React.ReactNode;
   description?: string;
   animated?: boolean;
-  glowing?: boolean;
 }
 
 function MetricsCard({
@@ -26,7 +23,6 @@ function MetricsCard({
   icon,
   description,
   animated = false,
-  glowing = false,
   className,
   ...props
 }: MetricsCardProps) {
@@ -69,10 +65,6 @@ function MetricsCard({
       {description && <p className="mt-1 text-xs text-muted-foreground">{description}</p>}
     </div>
   );
-
-  if (glowing) {
-    return <GlowingEffect className="rounded-lg">{card}</GlowingEffect>;
-  }
 
   return card;
 }

@@ -95,7 +95,6 @@ const navigation = [
   {
     label: "Effects",
     children: [
-      { label: "GlowingEffect", href: "/components/glowing-effect" },
       { label: "ShimmerButton", href: "/components/shimmer-button" },
       { label: "NumberTicker", href: "/components/number-ticker" },
       { label: "TextShimmer", href: "/components/text-shimmer" },

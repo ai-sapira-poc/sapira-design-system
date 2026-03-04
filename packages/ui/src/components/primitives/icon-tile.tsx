@@ -3,8 +3,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
-import { GlowingEffect } from "../effects/glowing-effect";
-
 const iconTileVariants = cva(
   "inline-flex flex-col items-center justify-center rounded-lg transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
   {
@@ -37,7 +35,6 @@ export interface IconTileProps
   label?: string;
   href?: string;
   onClick?: () => void;
-  glowing?: boolean;
 }
 
 function IconTile({
@@ -48,7 +45,6 @@ function IconTile({
   variant,
   size,
   className,
-  glowing = false,
   ...props
 }: IconTileProps) {
   const classes = cn(iconTileVariants({ variant, size }), className);
@@ -69,18 +65,15 @@ function IconTile({
     </>
   );
 
-  const wrapGlow = (el: React.ReactElement) =>
-    glowing ? <GlowingEffect className="rounded-lg">{el}</GlowingEffect> : el;
-
   if (href && variant !== "dashed") {
-    return wrapGlow(
+    return (
       <a href={href} className={classes} {...(props as React.ComponentProps<"a">)}>
         {content}
       </a>
     );
   }
 
-  return wrapGlow(
+  return (
     <div
       data-slot="icon-tile"
       role={onClick ? "button" : undefined}
@@ -93,5 +86,6 @@ function IconTile({
     </div>
   );
 }
+
 
 export { IconTile, iconTileVariants };
