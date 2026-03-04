@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 
 const navigation = [
   { label: "Overview", href: "/" },
+  { label: "Brand Themes", href: "/themes" },
+  { label: "For Agents", href: "/agents" },
+  { type: "separator" },
   {
     label: "Primitives",
     children: [
@@ -71,8 +74,6 @@ const navigation = [
       { label: "Form", href: "/patterns/form" },
     ],
   },
-  { label: "Themes", href: "/themes" },
-  { label: "For Agents", href: "/agents" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -87,8 +88,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p className="text-xs text-muted-foreground mt-1">Design System</p>
             </div>
             <nav className="space-y-4">
-              {navigation.map((section) =>
-                "children" in section && section.children ? (
+              {navigation.map((section, idx) =>
+                "type" in section && section.type === "separator" ? (
+                  <hr key={`sep-${idx}`} className="border-border" />
+                ) : "children" in section && section.children ? (
                   <div key={section.label}>
                     <p className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground mb-1 px-3">
                       {section.label}
@@ -107,11 +110,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </div>
                 ) : (
                   <a
-                    key={section.href}
-                    href={section.href}
+                    key={"href" in section ? section.href : `item-${idx}`}
+                    href={"href" in section ? section.href : "#"}
                     className="block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium"
                   >
-                    {section.label}
+                    {"label" in section ? section.label : ""}
                   </a>
                 )
               )}

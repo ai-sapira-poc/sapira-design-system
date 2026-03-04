@@ -167,7 +167,7 @@ const theme = createTheme({
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Theme Builder</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Brand Themes</h1>
         <p className="text-muted-foreground mt-2">
           Pick your brand colors and preview every component in real time.
         </p>
