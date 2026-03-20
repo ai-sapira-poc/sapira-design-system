@@ -34,6 +34,7 @@ const navigation = [
       { label: "DatePicker", href: "/components/date-picker" },
       { label: "FileUpload", href: "/components/file-upload" },
       { label: "ExpandableTabs", href: "/components/expandable-tabs" },
+      { label: "GlassCard", href: "/components/glass-card" },
     ],
   },
   {
