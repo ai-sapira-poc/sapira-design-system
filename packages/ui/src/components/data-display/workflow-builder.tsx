@@ -201,6 +201,8 @@ function DraggableNode({
     <motion.div
       drag
       dragMomentum={false}
+      dragElastic={0}
+      dragTransition={{ power: 0, timeConstant: 0 }}
       onDrag={(_e, info) => onDrag(node.id, info)}
       whileHover={{ scale: 1.02 }}
       className={cn(

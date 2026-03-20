@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@sapira/ui";
 
 const variants = ["default", "destructive", "outline", "secondary", "ghost", "link"] as const;
@@ -44,6 +47,25 @@ export default function ButtonPage() {
             </Button>
           ))}
         </div>
+      </section>
+
+      {/* Loading */}
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Loading State</h2>
+        <p className="text-sm text-muted-foreground">
+          Applies Doherty Threshold — instant visual feedback on action. The button preserves its width during loading.
+        </p>
+        <div className="flex gap-3 items-center flex-wrap">
+          <Button loading>Save</Button>
+          <Button loading loadingText="Saving…">Save</Button>
+          <Button loading variant="outline">Submit</Button>
+          <Button loading variant="secondary" loadingText="Processing…">Process</Button>
+        </div>
+        <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
+          <code>{`<Button loading>Save</Button>
+<Button loading loadingText="Saving…">Save</Button>`}</code>
+        </pre>
+        <LoadingDemo />
       </section>
 
       {/* Props Table */}
