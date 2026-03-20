@@ -11,3 +11,4 @@ export { AreaChart, type AreaChartProps, type AreaChartArea } from "./area-chart
 export { PieChart, type PieChartProps, type PieChartDatum } from "./pie-chart";
 export { Sparkline, type SparklineProps } from "./sparkline";
 export { Marquee, type MarqueeProps } from "./marquee";
+export { WorkflowBuilder, type WorkflowNode, type WorkflowConnection, type WorkflowBuilderProps, type NodeStatus } from "./workflow-builder";

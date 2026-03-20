@@ -73,6 +73,7 @@ const navigation = [
       { label: "AreaChart", href: "/components/area-chart" },
       { label: "Sparkline", href: "/components/sparkline" },
       { label: "Marquee", href: "/components/marquee" },
+      { label: "WorkflowBuilder", href: "/components/workflow-builder" },
     ],
   },
   {
