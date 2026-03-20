@@ -104,6 +104,7 @@ const navigation = [
       { label: "NumberTicker", href: "/components/number-ticker" },
       { label: "TextShimmer", href: "/components/text-shimmer" },
       { label: "AnimatedBackground", href: "/components/animated-background" },
+      { label: "GlowyWavesHero", href: "/components/glowy-waves-hero" },
     ],
   },
   {
