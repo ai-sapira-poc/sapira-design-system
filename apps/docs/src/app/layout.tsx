@@ -74,6 +74,7 @@ const navigation = [
       { label: "Sparkline", href: "/components/sparkline" },
       { label: "Marquee", href: "/components/marquee" },
       { label: "WorkflowBuilder", href: "/components/workflow-builder" },
+      { label: "FeatureCarousel", href: "/components/feature-carousel" },
     ],
   },
   {
