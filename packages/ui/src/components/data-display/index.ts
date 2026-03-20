@@ -13,4 +13,4 @@ export { Sparkline, type SparklineProps } from "./sparkline";
 export { Marquee, type MarqueeProps } from "./marquee";
 export { InteractiveLogsTable, type InteractiveLogsTableProps, type LogEntry, type LogLevel } from "./interactive-logs-table";
 export { FeatureCarousel, type FeatureCarouselItem, type FeatureCarouselProps } from "./feature-carousel";
-export { WorkflowBuilder, type WorkflowNode, type WorkflowConnection, type WorkflowBuilderProps, type NodeStatus } from "./workflow-builder";
+export { WorkflowBuilder, type WorkflowNode, type WorkflowConnection, type WorkflowBuilderProps } from "./workflow-builder";

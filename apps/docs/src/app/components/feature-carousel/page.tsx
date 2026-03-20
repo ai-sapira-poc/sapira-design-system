@@ -8,7 +8,7 @@ const features = [
     label: "Analytics",
     title: "Real-time Analytics Dashboard",
     description: "Track key metrics with live data feeds, customizable widgets, and exportable reports that keep your team aligned.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     color: "#2563eb",
   },
   {
@@ -16,7 +16,7 @@ const features = [
     label: "Automation",
     title: "Workflow Automation Engine",
     description: "Build complex automation pipelines with a visual editor. Connect your tools and eliminate repetitive tasks.",
-    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     color: "#7c3aed",
   },
   {
@@ -24,7 +24,7 @@ const features = [
     label: "Collaboration",
     title: "Team Collaboration Hub",
     description: "Shared workspaces, real-time editing, threaded comments, and integrations with the tools your team already uses.",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80",
     color: "#059669",
   },
   {
@@ -32,7 +32,7 @@ const features = [
     label: "Security",
     title: "Enterprise-Grade Security",
     description: "SOC 2 compliant, end-to-end encryption, role-based access control, and audit logging for complete visibility.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80",
     color: "#dc2626",
   },
 ];

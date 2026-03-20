@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
-import { Clock } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { cn } from "../../lib/utils";
+import { motion } from "framer-motion";
+import { BookOpen, Clock } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -15,120 +16,130 @@ export interface GlassCardAuthor {
 }
 
 export interface GlassCardProps extends React.ComponentProps<"div"> {
-  /** Card image URL */
-  image: string;
-  /** Card title */
-  title: string;
-  /** Card description / excerpt */
+  title?: string;
   description?: string;
-  /** Category tags shown as chips */
-  tags?: string[];
-  /** Author information */
+  image?: string;
   author?: GlassCardAuthor;
-  /** Estimated reading time (e.g. "5 min read") */
-  readingTime?: string;
-  /** Date string */
   date?: string;
-  /** Click handler */
+  readingTime?: string;
+  tags?: string[];
   onCardClick?: () => void;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Defaults                                                           */
+/* ------------------------------------------------------------------ */
+
+const defaultPost = {
+  title: "The Future of UI Design",
+  description:
+    "Exploring the latest trends in glassmorphism, 3D elements, and micro-interactions.",
+  image:
+    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+  author: {
+    name: "Moumen Soliman",
+    avatar: "https://github.com/shadcn.png",
+  },
+  date: "Dec 2, 2025",
+  readingTime: "5 min read",
+  tags: ["Design", "UI/UX"],
+};
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
 function GlassCard({
-  image,
-  title,
-  description,
-  tags,
-  author,
-  readingTime,
-  date,
+  title = defaultPost.title,
+  description = defaultPost.description,
+  image = defaultPost.image,
+  author = defaultPost.author,
+  date = defaultPost.date,
+  readingTime = defaultPost.readingTime,
+  tags = defaultPost.tags,
   onCardClick,
   className,
   ...props
 }: GlassCardProps) {
   return (
     <motion.div
-      whileHover="hover"
-      initial="rest"
-      animate="rest"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
       onClick={onCardClick}
-      className={cn(
-        "group relative overflow-hidden rounded-2xl cursor-pointer",
-        "border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg",
-        "transition-shadow hover:shadow-2xl",
-        className,
-      )}
+      className={cn("w-full max-w-[400px] cursor-pointer", className)}
       {...(props as any)}
     >
-      {/* Image with zoom on hover */}
-      <div className="relative h-48 overflow-hidden">
-        <motion.img
-          src={image}
-          alt={title}
-          className="h-full w-full object-cover"
-          variants={{
-            rest: { scale: 1 },
-            hover: { scale: 1.08 },
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10">
+        {/* Image Section */}
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <motion.img
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
 
-        {/* Tags overlay */}
-        {tags && tags.length > 0 && (
-          <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-            {tags.map((tag) => (
+          <div className="absolute bottom-3 left-3 flex gap-2">
+            {tags?.map((tag, index) => (
               <span
-                key={tag}
+                key={index}
                 className="inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-2.5 py-0.5 text-xs font-medium text-white"
               >
                 {tag}
               </span>
             ))}
           </div>
-        )}
-      </div>
 
-      {/* Content */}
-      <div className="p-5 space-y-3">
-        <h3 className="text-lg font-semibold leading-snug line-clamp-2">{title}</h3>
+          {/* Hover Overlay Action */}
+          <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25"
+            >
+              <BookOpen className="h-4 w-4" />
+              Read Article
+            </motion.button>
+          </div>
+        </div>
 
-        {description && (
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-            {description}
-          </p>
-        )}
+        {/* Content Section */}
+        <div className="flex flex-col gap-4 p-5">
+          <div className="space-y-2">
+            <h3 className="text-xl font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary">
+              {title}
+            </h3>
+            {description && (
+              <p className="line-clamp-2 text-sm text-muted-foreground">
+                {description}
+              </p>
+            )}
+          </div>
 
-        {/* Footer: author + meta */}
-        <div className="flex items-center justify-between pt-2">
-          {author && (
-            <div className="flex items-center gap-2">
-              {author.avatar ? (
-                <img
-                  src={author.avatar}
-                  alt={author.name}
-                  className="h-6 w-6 rounded-full object-cover"
-                />
-              ) : (
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-medium text-primary">
-                  {author.name.charAt(0).toUpperCase()}
+          <div className="flex items-center justify-between border-t border-border/50 pt-4">
+            {author && (
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8 border border-border/50">
+                  <AvatarImage src={author.avatar} alt={author.name} />
+                  <AvatarFallback>{author.name[0]}</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col text-xs">
+                  <span className="font-medium text-foreground">
+                    {author.name}
+                  </span>
+                  {date && (
+                    <span className="text-muted-foreground">{date}</span>
+                  )}
                 </div>
-              )}
-              <span className="text-xs text-muted-foreground">{author.name}</span>
-            </div>
-          )}
+              </div>
+            )}
 
-          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-            {date && <span>{date}</span>}
             {readingTime && (
-              <span className="inline-flex items-center gap-1">
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
                 <Clock className="h-3 w-3" />
-                {readingTime}
-              </span>
+                <span>{readingTime}</span>
+              </div>
             )}
           </div>
         </div>

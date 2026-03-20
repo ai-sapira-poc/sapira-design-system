@@ -1,314 +1,347 @@
 "use client";
 
-import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Play,
-  Pause,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Loader2,
-  Plus,
-  Trash2,
-  GripVertical,
-  Zap,
-  Mail,
-  Database,
-  Globe,
-  GitBranch,
-  Filter,
-  Code,
-  Webhook,
-  type LucideIcon,
-} from "lucide-react";
+import { motion, type PanInfo } from "framer-motion";
+import type React from "react";
+import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { cn } from "../../lib/utils";
+
+import {
+  ArrowRight,
+  Database,
+  Mail,
+  Plus,
+  Settings,
+  Webhook,
+  Zap,
+} from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
 
-export type NodeStatus = "idle" | "running" | "success" | "error" | "waiting";
-
 export interface WorkflowNode {
   id: string;
-  label: string;
-  description?: string;
-  icon?: LucideIcon;
-  type?: "trigger" | "action" | "condition" | "transform";
-  status?: NodeStatus;
-  /** Position on the canvas (relative %, or px) */
-  x?: number;
-  y?: number;
+  type: "trigger" | "action" | "condition";
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+  color: string;
+  position: { x: number; y: number };
 }
 
 export interface WorkflowConnection {
   from: string;
   to: string;
-  label?: string;
 }
 
-export interface WorkflowBuilderProps extends React.ComponentProps<"div"> {
+export interface WorkflowBuilderProps extends React.ComponentProps<"div"> {}
+
+/* ------------------------------------------------------------------ */
+/*  Constants                                                          */
+/* ------------------------------------------------------------------ */
+
+const NODE_WIDTH = 200;
+const NODE_HEIGHT = 100;
+
+const nodeTemplates: Omit<WorkflowNode, "id" | "position">[] = [
+  {
+    type: "trigger",
+    title: "Webhook",
+    description: "Receive data from external service",
+    icon: Webhook,
+    color: "emerald",
+  },
+  {
+    type: "action",
+    title: "Database Query",
+    description: "Fetch user records",
+    icon: Database,
+    color: "blue",
+  },
+  {
+    type: "condition",
+    title: "Condition",
+    description: "Check user status",
+    icon: Settings,
+    color: "amber",
+  },
+  {
+    type: "action",
+    title: "Send Email",
+    description: "Notify user",
+    icon: Mail,
+    color: "purple",
+  },
+  {
+    type: "action",
+    title: "Log Event",
+    description: "Record activity",
+    icon: Zap,
+    color: "indigo",
+  },
+];
+
+const initialNodes: WorkflowNode[] = [
+  {
+    id: "node-1",
+    type: "trigger",
+    title: "Webhook",
+    description: "Receive data from external service",
+    icon: Webhook,
+    color: "emerald",
+    position: { x: 50, y: 100 },
+  },
+  {
+    id: "node-2",
+    type: "action",
+    title: "Database Query",
+    description: "Fetch user records",
+    icon: Database,
+    color: "blue",
+    position: { x: 300, y: 100 },
+  },
+  {
+    id: "node-3",
+    type: "condition",
+    title: "Condition",
+    description: "Check user status",
+    icon: Settings,
+    color: "amber",
+    position: { x: 550, y: 100 },
+  },
+];
+
+const initialConnections: WorkflowConnection[] = [
+  { from: "node-1", to: "node-2" },
+  { from: "node-2", to: "node-3" },
+];
+
+const colorClasses: Record<string, string> = {
+  emerald: "border-emerald-400/40 bg-emerald-400/10 text-emerald-400",
+  blue: "border-blue-400/40 bg-blue-400/10 text-blue-400",
+  amber: "border-amber-400/40 bg-amber-400/10 text-amber-400",
+  purple: "border-purple-400/40 bg-purple-400/10 text-purple-400",
+  indigo: "border-indigo-400/40 bg-indigo-400/10 text-indigo-400",
+};
+
+const badgeColors: Record<string, string> = {
+  emerald: "bg-emerald-400/20 text-emerald-400 border-emerald-400/30",
+  blue: "bg-blue-400/20 text-blue-400 border-blue-400/30",
+  amber: "bg-amber-400/20 text-amber-400 border-amber-400/30",
+  purple: "bg-purple-400/20 text-purple-400 border-purple-400/30",
+  indigo: "bg-indigo-400/20 text-indigo-400 border-indigo-400/30",
+};
+
+const iconBg: Record<string, string> = {
+  emerald: "bg-emerald-400/15",
+  blue: "bg-blue-400/15",
+  amber: "bg-amber-400/15",
+  purple: "bg-purple-400/15",
+  indigo: "bg-indigo-400/15",
+};
+
+/* ------------------------------------------------------------------ */
+/*  SVG Connection                                                     */
+/* ------------------------------------------------------------------ */
+
+function ConnectionSVG({
+  nodes,
+  connections,
+}: {
   nodes: WorkflowNode[];
   connections: WorkflowConnection[];
-  /** Called when execution is triggered */
-  onExecute?: () => void;
-  /** Called when a node is clicked */
-  onNodeClick?: (node: WorkflowNode) => void;
-  /** Called when add-node button is clicked */
-  onAddNode?: () => void;
-  /** Called when a node is removed */
-  onRemoveNode?: (nodeId: string) => void;
-  /** Whether the workflow is currently executing */
-  executing?: boolean;
-  /** Title shown above the builder */
-  title?: string;
+}) {
+  const nodeMap = new Map(nodes.map((n) => [n.id, n]));
+
+  return (
+    <svg className="absolute inset-0 pointer-events-none" style={{ overflow: "visible" }}>
+      {connections.map((conn) => {
+        const from = nodeMap.get(conn.from);
+        const to = nodeMap.get(conn.to);
+        if (!from || !to) return null;
+
+        const x1 = from.position.x + NODE_WIDTH;
+        const y1 = from.position.y + NODE_HEIGHT / 2;
+        const x2 = to.position.x;
+        const y2 = to.position.y + NODE_HEIGHT / 2;
+        const midX = (x1 + x2) / 2;
+
+        return (
+          <path
+            key={`${conn.from}-${conn.to}`}
+            d={`M ${x1} ${y1} C ${midX} ${y1}, ${midX} ${y2}, ${x2} ${y2}`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeDasharray="6 4"
+            className="text-border"
+          />
+        );
+      })}
+    </svg>
+  );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Helpers                                                            */
+/*  Draggable Node                                                     */
 /* ------------------------------------------------------------------ */
 
-const statusConfig: Record<
-  NodeStatus,
-  { color: string; bg: string; border: string; Icon: LucideIcon | null; pulse: boolean }
-> = {
-  idle: { color: "text-muted-foreground", bg: "bg-muted/50", border: "border-border", Icon: null, pulse: false },
-  running: { color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/50", Icon: Loader2, pulse: true },
-  success: { color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/50", Icon: CheckCircle2, pulse: false },
-  error: { color: "text-red-500", bg: "bg-red-500/10", border: "border-red-500/50", Icon: XCircle, pulse: false },
-  waiting: { color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/50", Icon: Clock, pulse: true },
-};
-
-const typeIconMap: Record<string, LucideIcon> = {
-  trigger: Webhook,
-  action: Zap,
-  condition: GitBranch,
-  transform: Filter,
-};
-
-/* ------------------------------------------------------------------ */
-/*  Sub-components                                                     */
-/* ------------------------------------------------------------------ */
-
-function WorkflowNodeCard({
+function DraggableNode({
   node,
-  onClick,
-  onRemove,
+  onDrag,
 }: {
   node: WorkflowNode;
-  onClick?: () => void;
-  onRemove?: () => void;
+  onDrag: (id: string, info: PanInfo) => void;
 }) {
-  const status = node.status ?? "idle";
-  const cfg = statusConfig[status];
-  const Icon = node.icon ?? typeIconMap[node.type ?? "action"] ?? Code;
-  const StatusIcon = cfg.Icon;
+  const Icon = node.icon;
+  const colors = colorClasses[node.color] ?? colorClasses.blue;
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ scale: 1.03 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      onClick={onClick}
+      drag
+      dragMomentum={false}
+      onDrag={(_e, info) => onDrag(node.id, info)}
+      whileHover={{ scale: 1.02 }}
       className={cn(
-        "group relative flex items-center gap-3 rounded-xl border-2 px-4 py-3 cursor-pointer",
-        "bg-background shadow-sm transition-shadow hover:shadow-md",
-        cfg.border,
+        "absolute cursor-grab active:cursor-grabbing select-none",
+        "rounded-xl border bg-background/90 backdrop-blur-sm shadow-md",
+        "flex flex-col gap-2 p-4",
+        colors,
       )}
+      style={{
+        left: node.position.x,
+        top: node.position.y,
+        width: NODE_WIDTH,
+        minHeight: NODE_HEIGHT,
+      }}
     >
-      {/* Status pulse ring */}
-      {cfg.pulse && (
-        <span className={cn("absolute -top-1 -right-1 flex h-3 w-3")}>
-          <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-75", cfg.bg)} />
-          <span className={cn("relative inline-flex h-3 w-3 rounded-full", cfg.bg)} />
-        </span>
-      )}
-
-      {/* Icon */}
-      <div className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-lg", cfg.bg)}>
-        <Icon className={cn("h-4 w-4", cfg.color)} />
-      </div>
-
-      {/* Label & description */}
-      <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium truncate">{node.label}</p>
-        {node.description && (
-          <p className="text-xs text-muted-foreground truncate">{node.description}</p>
+      {/* Type badge */}
+      <span
+        className={cn(
+          "inline-flex self-start items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider",
+          badgeColors[node.color] ?? badgeColors.blue,
         )}
+      >
+        {node.type}
+      </span>
+
+      {/* Icon + Title */}
+      <div className="flex items-center gap-2">
+        <div className={cn("flex h-7 w-7 shrink-0 items-center justify-center rounded-lg", iconBg[node.color])}>
+          <Icon className="h-3.5 w-3.5" />
+        </div>
+        <span className="text-sm font-medium truncate">{node.title}</span>
       </div>
 
-      {/* Status icon */}
-      {StatusIcon && (
-        <StatusIcon
-          className={cn("h-4 w-4 shrink-0", cfg.color, status === "running" && "animate-spin")}
-        />
-      )}
+      {/* Description */}
+      <p className="text-xs opacity-70 truncate">{node.description}</p>
 
-      {/* Remove button */}
-      {onRemove && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          className="absolute -top-2 -right-2 hidden h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground group-hover:flex"
-        >
-          <Trash2 className="h-3 w-3" />
-        </button>
-      )}
+      {/* Connected indicator */}
+      <div className="flex items-center gap-1 text-[10px] opacity-50">
+        <ArrowRight className="h-3 w-3" />
+        <span>CONNECTED</span>
+      </div>
     </motion.div>
   );
 }
 
-function ConnectionLine({ animated }: { animated?: boolean }) {
-  return (
-    <div className="flex items-center justify-center py-1">
-      <div className="relative flex flex-col items-center">
-        <div className={cn("h-6 w-0.5 rounded-full bg-border", animated && "bg-blue-500/60")} />
-        {animated && (
-          <motion.div
-            className="absolute top-0 h-2 w-0.5 rounded-full bg-blue-500"
-            animate={{ y: [0, 16, 0] }}
-            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-          />
-        )}
-        <svg className="h-2 w-3" viewBox="0 0 12 8">
-          <path
-            d="M6 8L0 0h12z"
-            fill={animated ? "rgb(59 130 246 / 0.6)" : "hsl(var(--border))"}
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ */
-/*  Main component                                                     */
+/*  Main Component                                                     */
 /* ------------------------------------------------------------------ */
 
-function WorkflowBuilder({
-  nodes,
-  connections,
-  onExecute,
-  onNodeClick,
-  onAddNode,
-  onRemoveNode,
-  executing = false,
-  title,
-  className,
-  ...props
-}: WorkflowBuilderProps) {
-  // Build ordered list using connections
-  const orderedNodes = React.useMemo(() => {
-    if (connections.length === 0) return nodes;
-    const nodeMap = new Map(nodes.map((n) => [n.id, n]));
-    const toSet = new Set(connections.map((c) => c.to));
-    // Find root (not a "to" target)
-    const roots = nodes.filter((n) => !toSet.has(n.id));
-    const ordered: WorkflowNode[] = [];
-    const visited = new Set<string>();
-    const queue = roots.length > 0 ? [...roots] : [nodes[0]];
+function WorkflowBuilder({ className, ...props }: WorkflowBuilderProps) {
+  const [nodes, setNodes] = useState<WorkflowNode[]>(initialNodes);
+  const [connections, setConnections] = useState<WorkflowConnection[]>(initialConnections);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    while (queue.length > 0) {
-      const current = queue.shift()!;
-      if (visited.has(current.id)) continue;
-      visited.add(current.id);
-      ordered.push(current);
-      // Find children
-      for (const conn of connections) {
-        if (conn.from === current.id) {
-          const child = nodeMap.get(conn.to);
-          if (child && !visited.has(child.id)) queue.push(child);
-        }
+  const handleDrag = (id: string, info: PanInfo) => {
+    setNodes((prev) =>
+      prev.map((n) =>
+        n.id === id
+          ? {
+              ...n,
+              position: {
+                x: n.position.x + info.delta.x,
+                y: n.position.y + info.delta.y,
+              },
+            }
+          : n,
+      ),
+    );
+  };
+
+  const addNode = () => {
+    const template = nodeTemplates[nodes.length % nodeTemplates.length];
+    const newId = `node-${Date.now()}`;
+    const lastNode = nodes[nodes.length - 1];
+    const newNode: WorkflowNode = {
+      ...template,
+      id: newId,
+      position: {
+        x: lastNode ? lastNode.position.x + 250 : 50,
+        y: lastNode ? lastNode.position.y : 100,
+      },
+    };
+
+    flushSync(() => {
+      setNodes((prev) => [...prev, newNode]);
+      if (lastNode) {
+        setConnections((prev) => [...prev, { from: lastNode.id, to: newId }]);
       }
-    }
-    // Add any remaining
-    for (const n of nodes) {
-      if (!visited.has(n.id)) ordered.push(n);
-    }
-    return ordered;
-  }, [nodes, connections]);
+    });
+  };
 
-  const hasRunning = nodes.some((n) => n.status === "running");
+  // Compute canvas size
+  const maxX = Math.max(...nodes.map((n) => n.position.x + NODE_WIDTH + 50), 800);
+  const maxY = Math.max(...nodes.map((n) => n.position.y + NODE_HEIGHT + 50), 400);
 
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border bg-background/80 backdrop-blur-sm p-6",
+        "rounded-2xl border border-border bg-background/80 backdrop-blur-sm overflow-hidden",
         className,
       )}
       {...props}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          {title && <h3 className="text-lg font-semibold">{title}</h3>}
-          <p className="text-xs text-muted-foreground">
-            {nodes.length} node{nodes.length !== 1 && "s"} · {connections.length} connection{connections.length !== 1 && "s"}
-          </p>
+      <div className="flex items-center justify-between border-b border-border px-5 py-3">
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center rounded-full bg-emerald-400/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+            Active
+          </span>
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            Workflow Builder
+          </span>
         </div>
-        <div className="flex items-center gap-2">
-          {onAddNode && (
-            <button
-              onClick={onAddNode}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors"
-            >
-              <Plus className="h-3 w-3" />
-              Add Node
-            </button>
-          )}
-          {onExecute && (
-            <button
-              onClick={onExecute}
-              disabled={executing}
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-white transition-colors",
-                executing
-                  ? "bg-amber-500 hover:bg-amber-600"
-                  : "bg-emerald-500 hover:bg-emerald-600",
-              )}
-            >
-              {executing ? (
-                <>
-                  <Pause className="h-3 w-3" />
-                  Running…
-                </>
-              ) : (
-                <>
-                  <Play className="h-3 w-3" />
-                  Execute
-                </>
-              )}
-            </button>
-          )}
+        <button
+          onClick={addNode}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors"
+        >
+          <Plus className="h-3 w-3" />
+          Add Node
+        </button>
+      </div>
+
+      {/* Canvas */}
+      <div ref={containerRef} className="overflow-auto" style={{ maxHeight: 500 }}>
+        <div className="relative" style={{ width: maxX, height: maxY }}>
+          <ConnectionSVG nodes={nodes} connections={connections} />
+          {nodes.map((node) => (
+            <DraggableNode key={node.id} node={node} onDrag={handleDrag} />
+          ))}
         </div>
       </div>
 
-      {/* Nodes */}
-      <div className="flex flex-col items-center">
-        <AnimatePresence mode="popLayout">
-          {orderedNodes.map((node, i) => (
-            <React.Fragment key={node.id}>
-              {i > 0 && <ConnectionLine animated={hasRunning} />}
-              <div className="w-full max-w-xs">
-                <WorkflowNodeCard
-                  node={node}
-                  onClick={() => onNodeClick?.(node)}
-                  onRemove={onRemoveNode ? () => onRemoveNode(node.id) : undefined}
-                />
-              </div>
-            </React.Fragment>
-          ))}
-        </AnimatePresence>
+      {/* Footer */}
+      <div className="flex items-center justify-between border-t border-border px-5 py-2.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+        <span>
+          {nodes.length} nodes • {connections.length} connections
+        </span>
+        <span>Drag nodes to reposition</span>
       </div>
     </div>
   );
 }
 
 export { WorkflowBuilder };
-export type { WorkflowBuilderProps as WorkflowBuilderComponentProps };

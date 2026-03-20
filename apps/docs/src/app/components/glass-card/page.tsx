@@ -4,7 +4,7 @@ import { GlassCard } from "@sapira/ui";
 
 const cards = [
   {
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
     title: "Building Scalable Design Systems with AI",
     description: "How we leveraged AI agents to automate component generation, testing, and documentation at Sapira.",
     tags: ["Design Systems", "AI"],
@@ -13,7 +13,7 @@ const cards = [
     date: "Mar 18, 2026",
   },
   {
-    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
     title: "The Future of Enterprise Procurement",
     description: "Why agentic workflows are transforming how industrial companies manage their supply chains.",
     tags: ["Enterprise", "Procurement"],
@@ -22,7 +22,7 @@ const cards = [
     date: "Mar 15, 2026",
   },
   {
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
     title: "Glassmorphism in Modern UI Design",
     description: "A deep dive into frosted glass effects, when to use them, and accessibility considerations.",
     tags: ["UI Design", "CSS"],
@@ -60,13 +60,9 @@ export default function GlassCardPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Single Card — Minimal</h2>
+        <h2 className="text-lg font-semibold">Single Card — Default Props</h2>
         <div className="rounded-2xl bg-gradient-to-br from-indigo-950 to-purple-900 p-8 flex justify-center">
-          <GlassCard
-            image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop"
-            title="Minimal Card"
-            className="max-w-sm"
-          />
+          <GlassCard />
         </div>
       </section>
     </div>
