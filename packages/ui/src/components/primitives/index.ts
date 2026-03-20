@@ -34,3 +34,4 @@ export { RadioGroup, type RadioGroupProps, type RadioGroupOption } from "./radio
 export { DatePicker, type DatePickerProps } from "./date-picker";
 export { FileUpload, type FileUploadProps } from "./file-upload";
 export { ExpandableTabs, type ExpandableTabsProps, type ExpandableTab } from "./expandable-tabs";
+export { GlassCard, type GlassCardProps, type GlassCardAuthor } from "./glass-card";
