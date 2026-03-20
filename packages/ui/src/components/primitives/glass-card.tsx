@@ -70,7 +70,7 @@ function GlassCard({
       className={cn("w-full max-w-[400px] cursor-pointer", className)}
       {...(props as any)}
     >
-      <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10">
+      <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10">
         {/* Image Section */}
         <div className="relative aspect-[16/9] overflow-hidden">
           <motion.img
@@ -107,36 +107,36 @@ function GlassCard({
         {/* Content Section */}
         <div className="flex flex-col gap-4 p-5">
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary">
+            <h3 className="text-xl font-semibold leading-tight tracking-tight text-white transition-colors group-hover:text-white/90">
               {title}
             </h3>
             {description && (
-              <p className="line-clamp-2 text-sm text-muted-foreground">
+              <p className="line-clamp-2 text-sm text-white/70">
                 {description}
               </p>
             )}
           </div>
 
-          <div className="flex items-center justify-between border-t border-border/50 pt-4">
+          <div className="flex items-center justify-between border-t border-white/20 pt-4">
             {author && (
               <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8 border border-border/50">
+                <Avatar className="h-8 w-8 border border-white/20">
                   <AvatarImage src={author.avatar} alt={author.name} />
                   <AvatarFallback>{author.name[0]}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col text-xs">
-                  <span className="font-medium text-foreground">
+                  <span className="font-medium text-white">
                     {author.name}
                   </span>
                   {date && (
-                    <span className="text-muted-foreground">{date}</span>
+                    <span className="text-white/70">{date}</span>
                   )}
                 </div>
               </div>
             )}
 
             {readingTime && (
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1 text-xs text-white/70">
                 <Clock className="h-3 w-3" />
                 <span>{readingTime}</span>
               </div>
