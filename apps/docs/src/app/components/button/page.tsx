@@ -65,7 +65,7 @@ export default function ButtonPage() {
           <code>{`<Button loading>Save</Button>
 <Button loading loadingText="Saving…">Save</Button>`}</code>
         </pre>
-        <LoadingDemo />
+
       </section>
 
       {/* Props Table */}
