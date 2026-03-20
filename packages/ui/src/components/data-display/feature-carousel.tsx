@@ -77,6 +77,7 @@ function StackedImageCards({ images, activeIndex }: { images: string[]; activeIn
               src={img}
               alt=""
               className="h-full w-full object-cover"
+              loading="eager"
             />
           </motion.div>
         );
