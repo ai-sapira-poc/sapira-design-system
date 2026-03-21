@@ -152,6 +152,38 @@ export default function InputPage() {
         </div>
       </section>
 
+      <Section title="Formatted Input">
+        <p className="text-sm text-muted-foreground">
+          Use the <code>format</code> prop for auto-formatting. The raw value is preserved — formatted text is shown on blur.
+        </p>
+        <Demo>
+          <div className="grid grid-cols-2 gap-4 max-w-lg">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Phone</label>
+              <Input format="phone" placeholder="612 345 678" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Card</label>
+              <Input format="card" placeholder="4242 4242 4242 4242" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">IBAN</label>
+              <Input format="iban" placeholder="ES12 3456 7890 1234 5678" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Currency</label>
+              <Input format="currency" placeholder="1.234,50 €" />
+            </div>
+          </div>
+        </Demo>
+        <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
+          <code>{`<Input format="phone" placeholder="612 345 678" />
+<Input format="card" placeholder="4242 4242 4242 4242" />
+<Input format="iban" placeholder="ES12 3456 …" />
+<Input format="currency" formatOptions={{ currencySymbol: "$" }} />`}</code>
+        </pre>
+      </Section>
+
       <div className="rounded-lg border border-muted bg-muted/30 p-4 text-sm text-muted-foreground">
         💡 See the <a href="/patterns/form" className="underline font-medium text-foreground">Form pattern</a> for
         a complete form example with labels, validation, and Select.

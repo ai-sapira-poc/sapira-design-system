@@ -237,3 +237,27 @@
     scrollbar-color: #D4D4D8 transparent;
   }
 }
+
+/* Touch target expansion — Fitts's Law (minimum 44px hit area on touch devices) */
+@media (pointer: coarse) {
+  button,
+  [role="checkbox"],
+  [role="switch"],
+  [role="radio"],
+  [role="tab"],
+  [data-slot="pagination-item"] {
+    position: relative;
+  }
+
+  button::before,
+  [role="checkbox"]::before,
+  [role="switch"]::before,
+  [role="radio"]::before,
+  [role="tab"]::before,
+  [data-slot="pagination-item"]::before {
+    content: "";
+    position: absolute;
+    inset: calc((44px - 100%) / -2);
+    pointer-events: auto;
+  }
+}
