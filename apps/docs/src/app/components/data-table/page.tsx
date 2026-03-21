@@ -59,6 +59,19 @@ export default function DataTablePage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Loading State</h2>
+        <p className="text-sm text-muted-foreground">
+          Use the <code>loading</code> prop to show skeleton rows while data is being fetched. Headers remain visible.
+        </p>
+        <div className="border rounded-lg overflow-hidden">
+          <DataTable columns={columns} data={[]} loading skeletonRows={4} />
+        </div>
+        <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
+          <code>{`<DataTable columns={columns} data={[]} loading skeletonRows={4} />`}</code>
+        </pre>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-lg font-semibold">Empty State</h2>
         <div className="border rounded-lg overflow-hidden">
           <DataTable columns={columns} data={[]} emptyMessage="No users found." />

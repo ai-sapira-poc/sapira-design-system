@@ -57,6 +57,28 @@ export default function DatePickerPage() {
         </Demo>
       </Section>
 
+      <Section title="Text Input">
+        <p className="text-sm text-muted-foreground">
+          Type dates directly: &quot;mar 15&quot;, &quot;15/03/2026&quot;, &quot;2026-03-15&quot;, &quot;March 15 2026&quot;. Calendar still works alongside.
+        </p>
+        <Demo>
+          <div className="max-w-xs">
+            <DatePicker label="Type or pick" allowTextInput />
+          </div>
+        </Demo>
+        <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
+          <code>{`<DatePicker label="Type or pick" allowTextInput />`}</code>
+        </pre>
+      </Section>
+
+      <Section title="Button-only (no text input)">
+        <Demo>
+          <div className="max-w-xs">
+            <DatePicker label="Click only" allowTextInput={false} />
+          </div>
+        </Demo>
+      </Section>
+
       <Section title="Disabled">
         <Demo>
           <div className="max-w-xs">

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { Skeleton } from "./skeleton";
 
 export interface ColumnDef<T> {
   id: string;
@@ -28,6 +29,10 @@ export interface DataTableProps<T> extends React.ComponentProps<"div"> {
   emptyMessage?: string;
   rowKey?: (row: T, index: number) => string | number;
   onRowClick?: (row: T, index: number) => void;
+  /** Show skeleton loading rows */
+  loading?: boolean;
+  /** Number of skeleton rows to show (default 5) */
+  skeletonRows?: number;
 }
 
 function DataTable<T>({
@@ -38,6 +43,8 @@ function DataTable<T>({
   emptyMessage = "No data available",
   rowKey,
   onRowClick,
+  loading = false,
+  skeletonRows = 5,
   className,
   ...props
 }: DataTableProps<T>) {
@@ -98,7 +105,17 @@ function DataTable<T>({
           </tr>
         </thead>
         <tbody>
-          {data.length === 0 ? (
+          {loading ? (
+            Array.from({ length: skeletonRows }).map((_, i) => (
+              <tr key={`skeleton-${i}`} className="border-b border-border">
+                {columns.map((col) => (
+                  <td key={col.id} className={cn("p-3 align-middle", col.className)}>
+                    <Skeleton variant="text" className="h-4 w-3/4" />
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : data.length === 0 ? (
             <tr>
               <td
                 colSpan={columns.length}

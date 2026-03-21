@@ -23,6 +23,7 @@ const columns: ColumnDef<Item>[] = [
 export default function CrudPattern() {
   const [selected, setSelected] = useState<Item | null>(null);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const filtered = items.filter((i) => i.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -38,12 +39,19 @@ export default function CrudPattern() {
       <div className="space-y-4">
         <div className="flex items-center gap-4">
           <SearchBox placeholder="Search items…" onSearch={setQuery} className="max-w-sm" />
+          <Button
+            variant="outline"
+            onClick={() => { setLoading(true); setTimeout(() => setLoading(false), 2000); }}
+          >
+            Simulate Loading
+          </Button>
           <Button className="ml-auto">Add Item</Button>
         </div>
 
         <DataTable
           columns={columns}
           data={filtered}
+          loading={loading}
           rowKey={(row) => row.id}
           onRowClick={(row) => setSelected(row)}
         />

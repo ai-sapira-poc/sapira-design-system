@@ -26,3 +26,4 @@ export { industrialTheme } from "./tokens/themes/industrial";
 
 // Utilities
 export { cn } from "./lib/utils";
+export { formatChunked, stripFormat, type FormatType, type FormatOptions } from "./utils/format";
