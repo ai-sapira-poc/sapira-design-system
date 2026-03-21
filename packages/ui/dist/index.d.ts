@@ -28,7 +28,7 @@ interface ButtonProps extends React.ComponentProps<"button">, VariantProps<typeo
 declare function Button({ className, variant, size, asChild, loading, loadingText, children, ...props }: ButtonProps): react_jsx_runtime.JSX.Element;
 
 declare const badgeVariants: (props?: ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | null | undefined;
+    variant?: "default" | "destructive" | "outline" | "secondary" | "success" | "warning" | "info" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface BadgeProps extends React.ComponentProps<"span">, VariantProps<typeof badgeVariants> {
     asChild?: boolean;
@@ -539,7 +539,7 @@ interface StatusBadgeProps extends React.ComponentProps<"span"> {
 declare function StatusBadge({ status, label, colorMap, dot, className, ...props }: StatusBadgeProps): react_jsx_runtime.JSX.Element;
 
 declare const timelineIconVariants: (props?: ({
-    variant?: "error" | "user" | "success" | "warning" | "ai" | "system" | null | undefined;
+    variant?: "success" | "warning" | "error" | "user" | "ai" | "system" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface TimelineEvent {
     id: string;
