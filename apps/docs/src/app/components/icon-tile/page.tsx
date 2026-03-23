@@ -70,7 +70,7 @@ export default function IconTilePage() {
                     <div
                       className={`cursor-pointer rounded-lg transition-all ${
                         selectedTile === tile.id
-                          ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                          ? "outline outline-2 outline-primary outline-offset-2"
                           : ""
                       }`}
                       onClick={() => setSelectedTile(tile.id)}
