@@ -68,7 +68,7 @@ export default function IconTilePage() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <div
-                      className={`cursor-pointer rounded-lg transition-all ${
+                      className={`cursor-pointer rounded-lg transition-all w-fit ${
                         selectedTile === tile.id
                           ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
                           : ""
