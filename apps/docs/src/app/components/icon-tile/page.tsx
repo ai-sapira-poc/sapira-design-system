@@ -67,16 +67,12 @@ export default function IconTilePage() {
               <motion.div key={tile.id} variants={itemVariants}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div
-                      className={`cursor-pointer rounded-lg transition-all w-fit ${
-                        selectedTile === tile.id
-                          ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
-                          : ""
-                      }`}
+                    <IconTile
+                      icon={tile.icon}
+                      label={tile.label}
+                      selected={selectedTile === tile.id}
                       onClick={() => setSelectedTile(tile.id)}
-                    >
-                      <IconTile icon={tile.icon} label={tile.label} />
-                    </div>
+                    />
                   </TooltipTrigger>
                   <TooltipContent>Select {tile.label}</TooltipContent>
                 </Tooltip>

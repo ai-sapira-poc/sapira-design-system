@@ -244,7 +244,7 @@ function DatePicker({
               className={cn(
                 "flex items-center border-input h-9 w-full rounded-md border bg-transparent pl-9 pr-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none md:text-sm",
                 "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-                "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+                "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
                 "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
               )}
             />
@@ -299,7 +299,7 @@ function DatePicker({
             className={cn(
               "flex items-center gap-2 border-input h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none md:text-sm",
               "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-              "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+              "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
               "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
               !value && "text-muted-foreground"
             )}

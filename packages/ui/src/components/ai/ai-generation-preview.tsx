@@ -29,12 +29,12 @@ export function AIGenerationPreview({
   return (
     <div
       className={cn(
-        "rounded-lg border border-violet-200 dark:border-violet-800 bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/30 overflow-hidden",
+        "rounded-lg border border-violet-200 bg-gradient-to-b from-violet-50/50 to-background overflow-hidden",
         className
       )}
     >
       {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-violet-200/60 dark:border-violet-800/60 bg-violet-50/50 dark:bg-violet-950/20">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-violet-200/60 bg-violet-50/50">
         <motion.span
           animate={isGenerating ? { rotate: [0, 15, -15, 0] } : undefined}
           transition={
@@ -43,9 +43,9 @@ export function AIGenerationPreview({
               : undefined
           }
         >
-          <Sparkles className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+          <Sparkles className="h-4 w-4 text-violet-600" />
         </motion.span>
-        <span className="text-sm font-medium text-violet-700 dark:text-violet-300">
+        <span className="text-sm font-medium text-violet-700">
           {title}
         </span>
         {isGenerating && (
@@ -68,7 +68,7 @@ export function AIGenerationPreview({
 
       {/* Actions */}
       {!isGenerating && (onAccept || onReject || onRegenerate) && (
-        <div className="flex items-center gap-2 px-4 py-3 border-t border-violet-200/60 dark:border-violet-800/60 bg-muted/20">
+        <div className="flex items-center gap-2 px-4 py-3 border-t border-violet-200/60 bg-muted/20">
           {onRegenerate && (
             <Button variant="ghost" size="sm" onClick={onRegenerate} className="gap-1.5">
               <RefreshCw className="h-3.5 w-3.5" />

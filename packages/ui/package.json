@@ -10,11 +10,13 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./tokens/globals.css": "./src/tokens/globals.css"
+    "./tokens/globals.css": "./src/tokens/globals.css",
+    "./tailwind.css": "./src/tailwind.css"
   },
   "files": [
     "dist",
-    "src/tokens"
+    "src/tokens",
+    "src/tailwind.css"
   ],
   "scripts": {
     "build": "tsup",

@@ -106,11 +106,11 @@ const toastVariants = cva(
       variant: {
         default: "bg-background text-foreground border-border",
         success:
-          "bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-100 dark:border-emerald-800",
+          "bg-emerald-50 text-emerald-900 border-emerald-200",
         error:
-          "bg-red-50 text-red-900 border-red-200 dark:bg-red-950 dark:text-red-100 dark:border-red-800",
+          "bg-red-50 text-red-900 border-red-200",
         warning:
-          "bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950 dark:text-amber-100 dark:border-amber-800",
+          "bg-amber-50 text-amber-900 border-amber-200",
       },
     },
     defaultVariants: { variant: "default" },
@@ -119,9 +119,9 @@ const toastVariants = cva(
 
 const variantIcons: Record<ToastVariant, React.ReactNode> = {
   default: <Info className="h-4 w-4 shrink-0 mt-0.5" />,
-  success: <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400" />,
-  error: <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-red-600 dark:text-red-400" />,
-  warning: <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />,
+  success: <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-emerald-600" />,
+  error: <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-red-600" />,
+  warning: <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-amber-600" />,
 };
 
 function ToastViewport({
