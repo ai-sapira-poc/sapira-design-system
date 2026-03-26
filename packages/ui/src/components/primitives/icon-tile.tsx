@@ -6,7 +6,7 @@ import { cn } from "../../lib/utils";
 import { GlowingEffect } from "../effects/glowing-effect";
 
 const iconTileVariants = cva(
-  "inline-flex flex-col items-center justify-center rounded-lg transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+  "inline-flex flex-col items-center justify-center rounded-xl transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none",
   {
     variants: {
       variant: {
@@ -38,6 +38,8 @@ export interface IconTileProps
   href?: string;
   onClick?: () => void;
   glowing?: boolean;
+  /** Show selected/active ring state */
+  selected?: boolean;
 }
 
 function IconTile({
@@ -49,9 +51,14 @@ function IconTile({
   size,
   className,
   glowing = false,
+  selected = false,
   ...props
 }: IconTileProps) {
-  const classes = cn(iconTileVariants({ variant, size }), className);
+  const classes = cn(
+    iconTileVariants({ variant, size }),
+    selected && "ring-2 ring-primary ring-offset-2 ring-offset-background",
+    className
+  );
 
   const content = (
     <>
@@ -70,7 +77,7 @@ function IconTile({
   );
 
   const wrapGlow = (el: React.ReactElement) =>
-    glowing ? <GlowingEffect className="rounded-lg">{el}</GlowingEffect> : el;
+    glowing ? <GlowingEffect className="rounded-xl">{el}</GlowingEffect> : el;
 
   if (href && variant !== "dashed") {
     return wrapGlow(

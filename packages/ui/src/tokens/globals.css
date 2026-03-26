@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   /* Core colors */
   --color-background: var(--background);
@@ -59,6 +57,7 @@
 }
 
 :root {
+  color-scheme: light;
   --radius: 6px;
 
   /* Brand — configurable per theme */
@@ -116,50 +115,6 @@
   --sidebar-accent-foreground: #18181B;
   --sidebar-border: #E4E4E7;
   --sidebar-ring: #18181B;
-}
-
-.dark {
-  --background: #09090B;
-  --foreground: #FAFAFA;
-
-  --card: #18181B;
-  --card-foreground: #FAFAFA;
-
-  --popover: #18181B;
-  --popover-foreground: #FAFAFA;
-
-  --primary: #FAFAFA;
-  --primary-foreground: #09090B;
-
-  --secondary: #27272A;
-  --secondary-foreground: #FAFAFA;
-
-  --muted: #27272A;
-  --muted-foreground: #A1A1AA;
-
-  --accent: #27272A;
-  --accent-foreground: #FAFAFA;
-
-  --destructive: #DC2626;
-
-  --border: #27272A;
-  --input: #27272A;
-  --ring: #FAFAFA;
-
-  --chart-1: #FAFAFA;
-  --chart-2: #A1A1AA;
-  --chart-3: #71717A;
-  --chart-4: #E85D2D;
-  --chart-5: #52525B;
-
-  --sidebar: #09090B;
-  --sidebar-foreground: #FAFAFA;
-  --sidebar-primary: #FAFAFA;
-  --sidebar-primary-foreground: #09090B;
-  --sidebar-accent: #27272A;
-  --sidebar-accent-foreground: #FAFAFA;
-  --sidebar-border: #27272A;
-  --sidebar-ring: #FAFAFA;
 }
 
 /* Base styles */

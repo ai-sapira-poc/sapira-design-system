@@ -10,16 +10,20 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./tokens/globals.css": "./src/tokens/globals.css"
+    "./tokens/globals.css": "./src/tokens/globals.css",
+    "./tailwind.css": "./src/tailwind.css"
   },
   "files": [
     "dist",
-    "src/tokens"
+    "src/tokens",
+    "src/tailwind.css"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
@@ -46,11 +50,17 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.0.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "tsup": "^8.4.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.1"
   }
 }

@@ -1,0 +1,8 @@
+/* @sapira/ui — Tailwind v4 source scanning directive.
+ * Import this file in your project's CSS so Tailwind generates
+ * the utility classes used by DS components:
+ *
+ *   @import "@sapira/ui/tailwind.css";
+ */
+@source "./components/**/*.{js,ts,jsx,tsx}";
+@source "./patterns/**/*.{js,ts,jsx,tsx}";

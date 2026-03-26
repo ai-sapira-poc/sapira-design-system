@@ -195,8 +195,10 @@ interface IconTileProps extends Omit<React.ComponentProps<"div">, "onClick">, Va
     href?: string;
     onClick?: () => void;
     glowing?: boolean;
+    /** Show selected/active ring state */
+    selected?: boolean;
 }
-declare function IconTile({ icon, label, href, onClick, variant, size, className, glowing, ...props }: IconTileProps): react_jsx_runtime.JSX.Element;
+declare function IconTile({ icon, label, href, onClick, variant, size, className, glowing, selected, ...props }: IconTileProps): react_jsx_runtime.JSX.Element;
 
 interface RoleCardProps extends Omit<React.ComponentProps<"div">, "onClick"> {
     icon: React.ReactNode;
@@ -876,30 +878,30 @@ declare function CompactStepper({ steps, currentStep, className }: CompactSteppe
 declare const variantConfig: {
     readonly info: {
         readonly icon: React.ForwardRefExoticComponent<Omit<lucide_react.LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-        readonly bg: "bg-blue-50 dark:bg-blue-950/30";
-        readonly border: "border-blue-200 dark:border-blue-800";
-        readonly text: "text-blue-800 dark:text-blue-200";
+        readonly bg: "bg-blue-50";
+        readonly border: "border-blue-200";
+        readonly text: "text-blue-800";
         readonly iconColor: "text-blue-500";
     };
     readonly success: {
         readonly icon: React.ForwardRefExoticComponent<Omit<lucide_react.LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-        readonly bg: "bg-green-50 dark:bg-green-950/30";
-        readonly border: "border-green-200 dark:border-green-800";
-        readonly text: "text-green-800 dark:text-green-200";
+        readonly bg: "bg-green-50";
+        readonly border: "border-green-200";
+        readonly text: "text-green-800";
         readonly iconColor: "text-green-500";
     };
     readonly warning: {
         readonly icon: React.ForwardRefExoticComponent<Omit<lucide_react.LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-        readonly bg: "bg-amber-50 dark:bg-amber-950/30";
-        readonly border: "border-amber-200 dark:border-amber-800";
-        readonly text: "text-amber-800 dark:text-amber-200";
+        readonly bg: "bg-amber-50";
+        readonly border: "border-amber-200";
+        readonly text: "text-amber-800";
         readonly iconColor: "text-amber-500";
     };
     readonly error: {
         readonly icon: React.ForwardRefExoticComponent<Omit<lucide_react.LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-        readonly bg: "bg-red-50 dark:bg-red-950/30";
-        readonly border: "border-red-200 dark:border-red-800";
-        readonly text: "text-red-800 dark:text-red-200";
+        readonly bg: "bg-red-50";
+        readonly border: "border-red-200";
+        readonly text: "text-red-800";
         readonly iconColor: "text-red-500";
     };
 };

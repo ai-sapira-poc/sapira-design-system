@@ -26,7 +26,7 @@ export function AIBadge({
   const badge = (
     <motion.span
       className={cn(
-        "inline-flex items-center gap-1 rounded-sm bg-gradient-to-r from-violet-500/10 to-purple-500/10 text-violet-600 dark:text-violet-400",
+        "inline-flex items-center gap-1 rounded-sm bg-gradient-to-r from-violet-500/10 to-purple-500/10 text-violet-600",
         size === "sm" && "px-1.5 py-0.5 text-[10px]",
         size === "md" && "px-2 py-1 text-xs",
         className

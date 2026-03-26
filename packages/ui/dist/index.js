@@ -45,15 +45,15 @@ function Spinner({ size = "md", label = "Loading", className, ...props }) {
   ] });
 }
 var buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive before:hidden before:absolute before:min-h-[44px] before:min-w-[44px] before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 [@media(pointer:coarse)]:before:block",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline: "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        destructive: "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20",
+        outline: "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         shimmer: "relative overflow-hidden bg-primary text-primary-foreground hover:bg-primary/90 [&>.shimmer-layer]:absolute [&>.shimmer-layer]:inset-0 [&>.shimmer-layer]:bg-[linear-gradient(120deg,transparent_25%,rgba(255,255,255,0.3)_50%,transparent_75%)] [&>.shimmer-layer]:bg-[length:200%_100%] [&>.shimmer-layer]:animate-[shimmer-sweep_3s_ease-in-out_infinite]"
       },
@@ -106,7 +106,7 @@ function Button({
       ),
       style: minWidth ? { minWidth } : void 0,
       ...props,
-      children: loading ? /* @__PURE__ */ jsxs(Fragment, { children: [
+      children: loading ? size?.toString().startsWith("icon") ? /* @__PURE__ */ jsx(Spinner, { size: "sm", className: "shrink-0" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx(Spinner, { size: "sm", className: "shrink-0" }),
         loadingText ?? children
       ] }) : children
@@ -114,17 +114,17 @@ function Button({
   );
 }
 var badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
         default: "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
         secondary: "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive: "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        destructive: "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20",
         outline: "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-        success: "border-transparent bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
-        warning: "border-transparent bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300",
-        info: "border-transparent bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300"
+        success: "border-transparent bg-green-100 text-green-800",
+        warning: "border-transparent bg-yellow-100 text-yellow-800",
+        info: "border-transparent bg-blue-100 text-blue-800"
       }
     },
     defaultVariants: {
@@ -244,9 +244,9 @@ function Input({ className, type, error, format, formatOptions, onChange, onFocu
         "data-slot": "input",
         "aria-invalid": error || void 0,
         className: cn(
-          "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
           "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-          "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+          "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
           className
         ),
         onChange,
@@ -283,9 +283,9 @@ function Input({ className, type, error, format, formatOptions, onChange, onFocu
       "data-slot": "input",
       "aria-invalid": error || void 0,
       className: cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
         className
       ),
       value: displayValue,
@@ -895,7 +895,7 @@ function GlowingEffect({
   );
 }
 var iconTileVariants = cva(
-  "inline-flex flex-col items-center justify-center rounded-lg transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+  "inline-flex flex-col items-center justify-center rounded-xl transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none",
   {
     variants: {
       variant: {
@@ -924,9 +924,14 @@ function IconTile({
   size,
   className,
   glowing = false,
+  selected = false,
   ...props
 }) {
-  const classes = cn(iconTileVariants({ variant, size }), className);
+  const classes = cn(
+    iconTileVariants({ variant, size }),
+    selected && "ring-2 ring-primary ring-offset-2 ring-offset-background",
+    className
+  );
   const content = /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx("span", { className: "flex items-center justify-center", children: icon }),
     label && /* @__PURE__ */ jsx(
@@ -940,7 +945,7 @@ function IconTile({
       }
     )
   ] });
-  const wrapGlow = (el) => glowing ? /* @__PURE__ */ jsx(GlowingEffect, { className: "rounded-lg", children: el }) : el;
+  const wrapGlow = (el) => glowing ? /* @__PURE__ */ jsx(GlowingEffect, { className: "rounded-xl", children: el }) : el;
   if (href && variant !== "dashed") {
     return wrapGlow(
       /* @__PURE__ */ jsx("a", { href, className: classes, ...props, children: content })
@@ -1117,9 +1122,9 @@ var Textarea = React11.forwardRef(
           maxLength,
           "aria-invalid": error ? true : void 0,
           className: cn(
-            "placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
             "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-            "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+            "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
             resize === "none" && "resize-none",
             resize === "vertical" && "resize-y",
             resize === "both" && "resize",
@@ -1411,7 +1416,7 @@ function DatePicker({
               className: cn(
                 "flex items-center border-input h-9 w-full rounded-md border bg-transparent pl-9 pr-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none md:text-sm",
                 "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-                "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+                "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
                 "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
               )
             }
@@ -1467,7 +1472,7 @@ function DatePicker({
           className: cn(
             "flex items-center gap-2 border-input h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none md:text-sm",
             "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-            "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+            "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
             "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
             !value && "text-muted-foreground"
           ),
@@ -3840,9 +3845,9 @@ var toastVariants = cva(
     variants: {
       variant: {
         default: "bg-background text-foreground border-border",
-        success: "bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-100 dark:border-emerald-800",
-        error: "bg-red-50 text-red-900 border-red-200 dark:bg-red-950 dark:text-red-100 dark:border-red-800",
-        warning: "bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950 dark:text-amber-100 dark:border-amber-800"
+        success: "bg-emerald-50 text-emerald-900 border-emerald-200",
+        error: "bg-red-50 text-red-900 border-red-200",
+        warning: "bg-amber-50 text-amber-900 border-amber-200"
       }
     },
     defaultVariants: { variant: "default" }
@@ -3850,9 +3855,9 @@ var toastVariants = cva(
 );
 var variantIcons = {
   default: /* @__PURE__ */ jsx(Info, { className: "h-4 w-4 shrink-0 mt-0.5" }),
-  success: /* @__PURE__ */ jsx(CheckCircle2, { className: "h-4 w-4 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400" }),
-  error: /* @__PURE__ */ jsx(AlertCircle, { className: "h-4 w-4 shrink-0 mt-0.5 text-red-600 dark:text-red-400" }),
-  warning: /* @__PURE__ */ jsx(AlertTriangle, { className: "h-4 w-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" })
+  success: /* @__PURE__ */ jsx(CheckCircle2, { className: "h-4 w-4 shrink-0 mt-0.5 text-emerald-600" }),
+  error: /* @__PURE__ */ jsx(AlertCircle, { className: "h-4 w-4 shrink-0 mt-0.5 text-red-600" }),
+  warning: /* @__PURE__ */ jsx(AlertTriangle, { className: "h-4 w-4 shrink-0 mt-0.5 text-amber-600" })
 };
 function ToastViewport({
   toasts,
@@ -4228,10 +4233,10 @@ function CompactStepper({ steps, currentStep, className }) {
   }) });
 }
 var variantConfig = {
-  info: { icon: Info, bg: "bg-blue-50 dark:bg-blue-950/30", border: "border-blue-200 dark:border-blue-800", text: "text-blue-800 dark:text-blue-200", iconColor: "text-blue-500" },
-  success: { icon: CheckCircle, bg: "bg-green-50 dark:bg-green-950/30", border: "border-green-200 dark:border-green-800", text: "text-green-800 dark:text-green-200", iconColor: "text-green-500" },
-  warning: { icon: AlertTriangle, bg: "bg-amber-50 dark:bg-amber-950/30", border: "border-amber-200 dark:border-amber-800", text: "text-amber-800 dark:text-amber-200", iconColor: "text-amber-500" },
-  error: { icon: XCircle, bg: "bg-red-50 dark:bg-red-950/30", border: "border-red-200 dark:border-red-800", text: "text-red-800 dark:text-red-200", iconColor: "text-red-500" }
+  info: { icon: Info, bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-800", iconColor: "text-blue-500" },
+  success: { icon: CheckCircle, bg: "bg-green-50", border: "border-green-200", text: "text-green-800", iconColor: "text-green-500" },
+  warning: { icon: AlertTriangle, bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-800", iconColor: "text-amber-500" },
+  error: { icon: XCircle, bg: "bg-red-50", border: "border-red-200", text: "text-red-800", iconColor: "text-red-500" }
 };
 function Alert({
   variant = "info",
@@ -4272,7 +4277,7 @@ function Alert({
               setDismissed(true);
               onDismiss?.();
             },
-            className: cn("shrink-0 p-0.5 rounded hover:bg-black/5 dark:hover:bg-white/10 transition-colors", config.text),
+            className: cn("shrink-0 p-0.5 rounded hover:bg-black/5 transition-colors", config.text),
             children: /* @__PURE__ */ jsx(X, { className: "h-4 w-4" })
           }
         )
@@ -4766,7 +4771,7 @@ function AIBadge({
     motion.span,
     {
       className: cn(
-        "inline-flex items-center gap-1 rounded-sm bg-gradient-to-r from-violet-500/10 to-purple-500/10 text-violet-600 dark:text-violet-400",
+        "inline-flex items-center gap-1 rounded-sm bg-gradient-to-r from-violet-500/10 to-purple-500/10 text-violet-600",
         size === "sm" && "px-1.5 py-0.5 text-[10px]",
         size === "md" && "px-2 py-1 text-xs",
         className
@@ -4876,24 +4881,24 @@ function AIGenerationPreview({
     "div",
     {
       className: cn(
-        "rounded-lg border border-violet-200 dark:border-violet-800 bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/30 overflow-hidden",
+        "rounded-lg border border-violet-200 bg-gradient-to-b from-violet-50/50 to-background overflow-hidden",
         className
       ),
       children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-4 py-3 border-b border-violet-200/60 dark:border-violet-800/60 bg-violet-50/50 dark:bg-violet-950/20", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-4 py-3 border-b border-violet-200/60 bg-violet-50/50", children: [
           /* @__PURE__ */ jsx(
             motion.span,
             {
               animate: isGenerating ? { rotate: [0, 15, -15, 0] } : void 0,
               transition: isGenerating ? { duration: 1.5, repeat: Infinity, ease: "easeInOut" } : void 0,
-              children: /* @__PURE__ */ jsx(Sparkles, { className: "h-4 w-4 text-violet-600 dark:text-violet-400" })
+              children: /* @__PURE__ */ jsx(Sparkles, { className: "h-4 w-4 text-violet-600" })
             }
           ),
-          /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-violet-700 dark:text-violet-300", children: title }),
+          /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-violet-700", children: title }),
           isGenerating && /* @__PURE__ */ jsx("span", { className: "text-xs text-violet-500 animate-pulse ml-auto", children: "Generating\u2026" })
         ] }),
         /* @__PURE__ */ jsx("div", { className: "p-4 min-h-[100px]", children: isGenerating ? /* @__PURE__ */ jsx(StreamingText, { text: content, speed: 25 }) : /* @__PURE__ */ jsx("div", { className: "whitespace-pre-wrap text-sm leading-relaxed", children: content }) }),
-        !isGenerating && (onAccept || onReject || onRegenerate) && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-4 py-3 border-t border-violet-200/60 dark:border-violet-800/60 bg-muted/20", children: [
+        !isGenerating && (onAccept || onReject || onRegenerate) && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-4 py-3 border-t border-violet-200/60 bg-muted/20", children: [
           onRegenerate && /* @__PURE__ */ jsxs(Button, { variant: "ghost", size: "sm", onClick: onRegenerate, className: "gap-1.5", children: [
             /* @__PURE__ */ jsx(RefreshCw, { className: "h-3.5 w-3.5" }),
             "Regenerate"
@@ -4940,6 +4945,10 @@ function ThemeProvider({
     fontMono
   };
   const cssVars = createTheme(config);
+  React11.useEffect(() => {
+    document.documentElement.classList.remove("dark");
+    document.documentElement.style.colorScheme = "light";
+  }, []);
   return /* @__PURE__ */ jsx(ThemeContext.Provider, { value: config, children: /* @__PURE__ */ jsx("div", { style: cssVars, className, children }) });
 }
 

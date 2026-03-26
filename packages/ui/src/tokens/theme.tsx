@@ -67,6 +67,12 @@ export function ThemeProvider({
 
   const cssVars = createTheme(config);
 
+  // Force light mode — remove dark class and set color-scheme
+  React.useEffect(() => {
+    document.documentElement.classList.remove("dark");
+    document.documentElement.style.colorScheme = "light";
+  }, []);
+
   return (
     <ThemeContext.Provider value={config}>
       <div style={cssVars as React.CSSProperties} className={className}>

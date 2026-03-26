@@ -10,6 +10,7 @@ pnpm add @sapira/ui
 
 ```tsx
 import "@sapira/ui/tokens/globals.css";
+import "@sapira/ui/tailwind.css"; // Ensures Tailwind scans DS component classes
 import { ThemeProvider, Button } from "@sapira/ui";
 
 function App() {
@@ -68,6 +69,8 @@ const theme = createTheme({
 ```
 
 Themes cascade — you can nest `ThemeProvider` for section-level theming.
+
+> **Note:** Sapira UI is light-mode only. Dark mode variables and utilities have been removed. The `ThemeProvider` automatically enforces `color-scheme: light` on the document.
 
 ## Toast Notifications
 
