@@ -6,6 +6,29 @@ import { Button } from "@sapira/ui";
 const variants = ["default", "destructive", "outline", "secondary", "ghost", "link"] as const;
 const sizes = ["default", "sm", "lg", "icon"] as const;
 
+function LoadingDemo() {
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 2000);
+  };
+
+  return (
+    <div className="flex gap-3 items-center flex-wrap">
+      <Button loading={loading} loadingText="Saving…" onClick={handleClick}>
+        Save Changes
+      </Button>
+      <Button loading={loading} variant="outline" onClick={handleClick}>
+        Submit
+      </Button>
+      <Button loading={loading} size="icon" onClick={handleClick}>
+        ★
+      </Button>
+    </div>
+  );
+}
+
 export default function ButtonPage() {
   return (
     <div className="space-y-10">
@@ -60,12 +83,22 @@ export default function ButtonPage() {
           <Button loading loadingText="Saving…">Save</Button>
           <Button loading variant="outline">Submit</Button>
           <Button loading variant="secondary" loadingText="Processing…">Process</Button>
+          <Button loading size="icon">★</Button>
         </div>
         <pre className="bg-muted rounded-md p-4 text-sm overflow-x-auto">
           <code>{`<Button loading>Save</Button>
-<Button loading loadingText="Saving…">Save</Button>`}</code>
+<Button loading loadingText="Saving…">Save</Button>
+<Button loading size="icon">★</Button>`}</code>
         </pre>
+      </section>
 
+      {/* Interactive Loading Demo */}
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Interactive Demo</h2>
+        <p className="text-sm text-muted-foreground">
+          Click to trigger a 2-second loading state.
+        </p>
+        <LoadingDemo />
       </section>
 
       {/* Props Table */}
@@ -101,6 +134,16 @@ export default function ButtonPage() {
                 <td className="p-3 font-mono text-xs">asChild</td>
                 <td className="p-3 font-mono text-xs">boolean</td>
                 <td className="p-3 font-mono text-xs">false</td>
+              </tr>
+              <tr className="border-t">
+                <td className="p-3 font-mono text-xs">loading</td>
+                <td className="p-3 font-mono text-xs">boolean</td>
+                <td className="p-3 font-mono text-xs">false</td>
+              </tr>
+              <tr className="border-t">
+                <td className="p-3 font-mono text-xs">loadingText</td>
+                <td className="p-3 font-mono text-xs">string</td>
+                <td className="p-3 font-mono text-xs">—</td>
               </tr>
               <tr className="border-t">
                 <td className="p-3 font-mono text-xs">className</td>

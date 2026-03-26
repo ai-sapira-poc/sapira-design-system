@@ -7,7 +7,7 @@ import { cn } from "../../lib/utils";
 import { Spinner } from "../feedback/spinner";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive before:hidden before:absolute before:min-h-[44px] before:min-w-[44px] before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 [@media(pointer:coarse)]:before:block",
   {
     variants: {
       variant: {
@@ -86,10 +86,14 @@ function Button({
       {...props}
     >
       {loading ? (
-        <>
+        size?.toString().startsWith("icon") ? (
           <Spinner size="sm" className="shrink-0" />
-          {loadingText ?? children}
-        </>
+        ) : (
+          <>
+            <Spinner size="sm" className="shrink-0" />
+            {loadingText ?? children}
+          </>
+        )
       ) : (
         children
       )}
